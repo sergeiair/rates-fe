@@ -1,0 +1,36 @@
+
+
+@mixin generic-btn() {
+  display: flex;
+  align-items: center;
+  height: $height;
+  padding: 0 $xPadding;
+  user-select: none;
+  outline: 0;
+  font-size: 1rem;
+
+  &:focus {
+    outline: 0;
+    border: 0;
+  }
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+$height: 40px;
+$xPadding: 1.5rem;
+
+.btn-icon,
+.btn-trans {
+  background: transparent;
+  border: 0;
+
+  .fa {
+    margin-right: .5rem;
+  }
+
+  @include generic-btn;
+}
+

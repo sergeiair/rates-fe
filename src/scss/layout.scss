@@ -1,0 +1,30 @@
+
+.column-center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+@media only screen and (max-width: 1000px) {
+    .mw-100 {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1001px) {
+    .dw-25 {
+        width: 25%;
+    }
+}
+

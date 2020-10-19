@@ -1,0 +1,7 @@
+@for $i from 1 through 10 {
+  .image-#{$i * 20} {
+    display: block;
+    width: #{$i * 20}px;
+    min-width: #{$i * 20}px;
+  }
+}

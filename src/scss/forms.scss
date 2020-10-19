@@ -1,0 +1,32 @@
+
+@mixin generic-input() {
+  &--sm {
+    width: 60px;
+  }
+
+  &--mx {
+    margin: 0 1rem;
+  }
+
+  &:focus {
+    background: transparent;
+    outline: 0;
+    border: 0;
+  }
+}
+
+.input-trans,
+.select-trans {
+  @include generic-input();
+
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--accent-color);
+
+  &:focus {
+    border-bottom: 1px solid var(--accent-color);
+  }
+
+
+}
