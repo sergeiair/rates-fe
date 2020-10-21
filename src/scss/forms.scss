@@ -1,5 +1,7 @@
 
 @mixin generic-input() {
+  padding: .5rem;
+
   &--sm {
     width: 60px;
   }

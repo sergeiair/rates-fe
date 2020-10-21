@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useStore} from "react-redux";
-import {requestPredictions} from "../actions";
-import {round5} from "../utils";
+import {requestPredictions} from "../../actions";
+import {round5} from "../../utils";
 import moment from "moment";
 
 function PredictionsList(props) {

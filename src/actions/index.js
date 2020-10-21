@@ -10,7 +10,6 @@ export const requestHistory = (payload) => ({
 	payload
 });
 
-
 export const commitPredictions = (payload) => ({
 	type: 'COMMIT_PREDICTIONS',
 	payload
@@ -27,6 +26,16 @@ export const checkSchedulersState = () => ({
 
 export const enableScheduler = (payload) => ({
 	type: 'ENABLE_SCHEDULER',
+	payload
+});
+
+export const registerUser = (payload) => ({
+	type: 'REGISTER_USER',
+	payload
+});
+
+export const login = (payload) => ({
+	type: 'LOG_IN',
 	payload
 });
 

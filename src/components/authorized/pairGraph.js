@@ -1,7 +1,7 @@
 import React, {createRef, useEffect} from 'react';
 import Dygraph from 'dygraphs';
 import PropTypes from "prop-types";
-import {historyToGraphDataSet} from "../utils";
+import {historyToGraphDataSet} from "../../utils";
 
 function PairGraph(props) {
   const wrapRef = createRef();

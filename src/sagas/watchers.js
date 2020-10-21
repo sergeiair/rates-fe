@@ -2,10 +2,12 @@ import {takeLatest} from "@redux-saga/core/effects";
 import {
     callCheckSchedulersState,
     callCommitPredictions,
-    callEnableScheduler, callFetchHistory,
+    callEnableScheduler,
+    callFetchHistory,
     callFetchPredictions,
     callFetchRates
 } from "./";
+import {callLogIn, callRegisterUser} from "./calls";
 
 export function* fetchRatesWatcher() {
     yield takeLatest('REQUEST_RATES', callFetchRates)
@@ -30,3 +32,12 @@ export function* enableSchedulerWatcher() {
 export function* commitPredictionsWatcher() {
     yield takeLatest('COMMIT_PREDICTIONS', callCommitPredictions)
 }
+
+export function* registerUserWatcher() {
+    yield takeLatest('REGISTER_USER', callRegisterUser)
+}
+
+export function* logInWatcher() {
+    yield takeLatest('LOG_IN', callLogIn)
+}
+

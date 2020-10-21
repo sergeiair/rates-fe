@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import PropTypes from "prop-types";
 import CurrenciesRate from "./currenciesRate";
 import {useStore} from "react-redux";
-import {commitPredictions} from "../actions";
-import {addPercent, deductPercent} from "../utils/rates";
-import {round5} from "../utils";
+import {commitPredictions} from "../../actions";
+import {addPercent, deductPercent} from "../../utils/rates";
+import {round5} from "../../utils";
 import moment from "moment";
 
 function CurrenciesPrediction(props) {

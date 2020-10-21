@@ -1,5 +1,5 @@
 import React, {createRef, useEffect} from 'react';
-import {requestRates} from "../actions";
+import {requestRates} from "../../actions";
 import {useStore} from "react-redux";
 
 

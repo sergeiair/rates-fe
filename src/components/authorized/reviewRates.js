@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useStore} from "react-redux";
 import PropTypes from "prop-types";
 
-import {requestHistory} from "../actions";
+import {requestHistory} from "../../actions";
 import {FetchRatesFormMemorized} from "./fetchRatesForm";
 import PairGraph from "./pairGraph";
 

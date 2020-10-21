@@ -81,3 +81,23 @@ export function* callEnableScheduler(args) {
 
     yield put({ type: "ENABLE_SCHEDULER_DONE", payload: {...json, name: args.payload.name} });
 }
+
+export function* callRegisterUser(args) {
+    const url = `http://localhost:3333/api/users/register`;
+
+    const json = yield axios.post(url, args.payload)
+        .then(response => response.data)
+        .catch(notifyError);
+
+    yield put({ type: "REGISTER_USER_DONE", payload: json });
+}
+
+export function* callLogIn(args) {
+    const url = `http://localhost:3333/api/users/login`;
+
+    const json = yield axios.post(url, args.payload)
+        .then(response => response.data)
+        .catch(notifyError);
+
+    yield put({ type: "LOG_IN_DONE", payload: json });
+}

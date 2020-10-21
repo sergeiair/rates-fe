@@ -9,7 +9,8 @@ const initialState = {
         target: 'EUR'
     },
     history: [],
-    predictions: []
+    predictions: [],
+    user: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -50,6 +51,13 @@ const reducer = (state = initialState, action) => {
                 schedulers: {
                     ...state.schedulers,
                     [action.payload.name]: action.payload.data.status
+                }
+            };
+        case 'LOG_IN_DONE':
+            return {
+                ...state,
+                user: {
+                    ...action.payload.data
                 }
             };
         case 'REQUEST_ERROR':

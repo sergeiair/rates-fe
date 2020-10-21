@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import {useStore} from "react-redux";
-import {checkSchedulersState, enableScheduler} from "../actions";
-
-import offImage from '../assets/off.svg';
-import onImage from '../assets/on.svg';
 import PropTypes from "prop-types";
+import {checkSchedulersState, enableScheduler} from "../../actions";
+
+import offImage from '../../assets/off.svg';
+import onImage from '../../assets/on.svg';
+
 
 function Settings(props) {
     const store = useStore();
