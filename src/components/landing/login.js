@@ -6,7 +6,7 @@ import {login} from "../../actions";
 function LogIn() {
     const store = useStore();
     const [value, setState] = useState({
-        email: 'u@u.u',
+        email: 'u@u.u2',
         pw: '1111'
     });
 
