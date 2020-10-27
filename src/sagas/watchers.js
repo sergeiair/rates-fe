@@ -5,7 +5,8 @@ import {
     callEnableScheduler,
     callFetchHistory,
     callFetchPredictions,
-    callFetchRates
+    callFetchRates,
+    callLogOut
 } from "./";
 import {callLogIn, callRegisterUser} from "./calls";
 
@@ -39,5 +40,9 @@ export function* registerUserWatcher() {
 
 export function* logInWatcher() {
     yield takeLatest('LOG_IN', callLogIn)
+}
+
+export function* logOutWatcher() {
+    yield takeLatest('LOG_OUT', callLogOut)
 }
 

@@ -1,8 +1,23 @@
 import {put} from "@redux-saga/core/effects";
 import {toast} from 'react-toastify';
+import {SessionStorage} from "../utils/sessionStorage";
 
 const axios = require('axios').default;
 const notifyError = (error) => toast.error(error.message);
+
+axios.interceptors.response.use((response) => {
+    if(response.status === 401) {
+        window.location.href = '/';
+    }
+
+    return response;
+}, (error) => {
+    return Promise.reject(error.message);
+});
+
+export function initAuthHeaders(token) {
+    axios.defaults.headers.common['GoAway'] = token;
+}
 
 export function* callFetchRates(args) {
     const url = `http://localhost:3333/api/rates/pair?base=${
@@ -96,8 +111,28 @@ export function* callLogIn(args) {
     const url = `http://localhost:3333/api/users/login`;
 
     const json = yield axios.post(url, args.payload)
-        .then(response => response.data)
+        .then(response => {
+            SessionStorage.pickFromHeader(response.headers);
+            return response.data;
+        })
         .catch(notifyError);
 
-    yield put({ type: "LOG_IN_DONE", payload: json });
+    yield put({ type: "LOG_IN_DONE", payload: {
+        ...json.data, token: SessionStorage.token
+    }});
+}
+
+export function* callLogOut(args) {
+    const url = `http://localhost:3333/api/users/logout`;
+
+    const json = yield axios.post(url)
+        .then(response => {
+            SessionStorage.clear();
+            window.location.href = '/';
+
+            return response.data;
+        })
+        .catch(notifyError);
+
+    yield put({ type: "LOG_OUT_DONE" });
 }

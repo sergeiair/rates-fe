@@ -5,7 +5,7 @@ import LogIn from "./login";
 
 function Landing(props) {
     const [state, setState] = useState({
-        showRegister: 'login'
+        showRegister: false
     });
 
     return (

@@ -1,4 +1,7 @@
 
+export const initApp = () => ({
+	type: 'INIT_APP'
+});
 
 export const requestRates = (payload) => ({
 	type: 'REQUEST_RATES',
@@ -37,6 +40,10 @@ export const registerUser = (payload) => ({
 export const login = (payload) => ({
 	type: 'LOG_IN',
 	payload
+});
+
+export const logout = () => ({
+	type: 'LOG_OUT'
 });
 
 export const requestError = () => ({

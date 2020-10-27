@@ -1,3 +1,4 @@
+import {SessionStorage} from "../utils/sessionStorage";
 
 const initialState = {
     schedulers: {
@@ -10,11 +11,24 @@ const initialState = {
     },
     history: [],
     predictions: [],
-    user: {}
+    user: {
+        email: null,
+        name: null,
+        token: null
+    }
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'INIT_APP':
+            return {
+                ...state,
+                user: {
+                    email: null,
+                    name: null,
+                    token: SessionStorage.token
+                }
+            };
         case 'REQUEST_RATES_DONE':
             const { data, target } = action.payload;
             const values = !!data.rates && data.rates.length ? data.rates[0] : {};
@@ -57,7 +71,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {
-                    ...action.payload.data
+                    ...action.payload
+                }
+            };
+        case 'LOG_OUT_DONE':
+            return {
+                ...state,
+                user: {
+                    email: null,
+                    name: null,
+                    token: null
                 }
             };
         case 'REQUEST_ERROR':
