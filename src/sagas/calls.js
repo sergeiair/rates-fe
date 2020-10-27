@@ -1,17 +1,17 @@
 import {put} from "@redux-saga/core/effects";
 import {toast} from 'react-toastify';
 import {SessionStorage} from "../utils/sessionStorage";
+import {internalLogOut} from "../utils/user";
 
 const axios = require('axios').default;
 const notifyError = (error) => toast.error(error.message);
 
 axios.interceptors.response.use((response) => {
-    if(response.status === 401) {
-        window.location.href = '/';
-    }
-
+    if(response.status === 401) internalLogOut();
     return response;
 }, (error) => {
+    notifyError(error);
+    internalLogOut();
     return Promise.reject(error.message);
 });
 
@@ -53,7 +53,7 @@ export function* callCommitPredictions(args) {
 
     const json = yield axios.post(url, args.payload)
         .then(response => {
-            window.location.href = '/review';
+            args.history.push('/review');
             return response.data;
         })
         .catch(notifyError);
@@ -113,6 +113,7 @@ export function* callLogIn(args) {
     const json = yield axios.post(url, args.payload)
         .then(response => {
             SessionStorage.pickFromHeader(response.headers);
+            initAuthHeaders(SessionStorage.token);
             return response.data;
         })
         .catch(notifyError);
@@ -122,14 +123,12 @@ export function* callLogIn(args) {
     }});
 }
 
-export function* callLogOut(args) {
+export function* callLogOut() {
     const url = `http://localhost:3333/api/users/logout`;
 
-    const json = yield axios.post(url)
+    yield axios.post(url)
         .then(response => {
-            SessionStorage.clear();
-            window.location.href = '/';
-
+            internalLogOut();
             return response.data;
         })
         .catch(notifyError);

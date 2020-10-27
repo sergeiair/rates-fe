@@ -19,11 +19,7 @@ function App(props) {
     useEffect(() => {
         store.dispatch(initApp());
         initAuthHeaders(SessionStorage.token);
-    }, []);
-
-    useEffect(() => {
-        initAuthHeaders(props.user.token);
-    }, [props.user.token]);
+    }, [store]);
 
     return (
         <BrowserRouter >

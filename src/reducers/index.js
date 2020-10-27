@@ -31,7 +31,7 @@ const reducer = (state = initialState, action) => {
             };
         case 'REQUEST_RATES_DONE':
             const { data, target } = action.payload;
-            const values = !!data.rates && data.rates.length ? data.rates[0] : {};
+            const values = !!data && !!data.rates ? data.rates[0] : {};
 
             return {
                 ...state,
@@ -43,12 +43,12 @@ const reducer = (state = initialState, action) => {
         case 'REQUEST_HISTORY_DONE':
             return {
                 ...state,
-                history: action.payload.data.rates
+                history: action.payload.data ? action.payload.data.rates || [] : []
             };
         case 'REQUEST_PREDICTIONS_DONE':
             return {
                 ...state,
-                predictions: action.payload.data.predictions
+                predictions: action.payload.data ? action.payload.data.predictions || [] : []
             };
         case 'CHECK_SCHEDULERS_STATE_DONE':
             return {

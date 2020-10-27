@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import PropTypes from "prop-types";
 import CurrenciesRate from "./currenciesRate";
 import {useStore} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {commitPredictions} from "../../actions";
 import {addPercent, deductPercent} from "../../utils/rates";
 import {round5} from "../../utils";
 import moment from "moment";
 
 function CurrenciesPrediction(props) {
+    const history = useHistory();
     const store = useStore();
     const [value, setState] = useState({
         selectedRateControl: '',
@@ -293,8 +295,8 @@ function CurrenciesPrediction(props) {
                     predRate: value.rate || props.value,
                     volatility: value.volatility,
                     forecast: value.forecast,
-                    time: value.time.valueOf(),
-                }))}>
+                    time: value.time.valueOf()
+                }, history))}>
                     Submit prediction
             </button>
         </div>

@@ -8,6 +8,7 @@ import PairGraph from "./pairGraph";
 
 function ReviewRates(props) {
     const store = useStore();
+    const curr2 = props.pairs[1];
     const [params] = useState({
         base: 'USD',
         limit: 225
@@ -15,7 +16,7 @@ function ReviewRates(props) {
 
     useEffect(() => {
         store.dispatch(requestHistory(params));
-    }, [store, props.pairs[1]]);
+    }, [store, curr2, params]);
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center">

@@ -13,7 +13,7 @@ function FetchRatesForm() {
             curr1: 'USD',
             curr2: selectRef.current.value
         }));
-    }, []);
+    }, [selectRef, store]);
 
   return (
     <>
