@@ -9,7 +9,8 @@ import {
     fetchHistoryWatcher,
     registerUserWatcher,
     logInWatcher,
-    logOutWatcher
+    logOutWatcher,
+    computeCurrentPredictionWatcher
 } from './watchers';
 
 export default function* rootSaga() {
@@ -24,5 +25,6 @@ export default function* rootSaga() {
         registerUserWatcher(),
         logInWatcher(),
         logOutWatcher(),
+        computeCurrentPredictionWatcher()
     ]);
 }

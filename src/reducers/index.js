@@ -1,4 +1,5 @@
 import {SessionStorage} from "../utils/sessionStorage";
+import {actionTypes} from "../actions/types";
 
 const initialState = {
     schedulers: {
@@ -11,6 +12,7 @@ const initialState = {
     },
     history: [],
     predictions: [],
+    currentPrediction: {},
     user: {
         email: null,
         name: null,
@@ -83,6 +85,8 @@ const reducer = (state = initialState, action) => {
                     token: null
                 }
             };
+        case actionTypes.COMPUTE_CURRENT_PREDICTION + 'DONE':
+            return { ...state, ...action.payload };
         case 'REQUEST_ERROR':
             return { ...state, ...action.payload };
         default:

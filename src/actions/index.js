@@ -14,7 +14,7 @@ export const requestHistory = (payload) => ({
 });
 
 export const commitPredictions = (payload, history) => ({
-	type: 'COMMIT_PREDICTIONS',
+	type: 'COMMIT_PREDICTION',
 	payload,
 	history
 });
@@ -46,6 +46,11 @@ export const login = (payload) => ({
 export const logout = (history) => ({
 	type: 'LOG_OUT',
 	history
+});
+
+export const computeCurrentPrediction = (payload) => ({
+	type: 'COMPUTE_CURRENT_PREDICTION',
+	payload
 });
 
 export const recomputePredictions = () => ({

@@ -2,6 +2,7 @@ import {put} from "@redux-saga/core/effects";
 import {toast} from 'react-toastify';
 import {SessionStorage} from "../utils/sessionStorage";
 import {internalLogOut} from "../utils/user";
+import {actionTypes} from "../actions/types";
 
 const axios = require('axios').default;
 const notifyError = (error) => toast.error(error.message);
@@ -48,7 +49,7 @@ export function* callFetchHistory(args) {
     });
 }
 
-export function* callCommitPredictions(args) {
+export function* callCommitPrediction(args) {
     const url = `http://localhost:3333/api/predictions`;
 
     const json = yield axios.post(url, args.payload)
@@ -58,7 +59,7 @@ export function* callCommitPredictions(args) {
         })
         .catch(notifyError);
 
-    yield put({ type: "COMMIT_PREDICTIONS_DONE", payload: json });
+    yield put({ type: "COMMIT_PREDICTION_DONE", payload: json });
 }
 
 export function* callFetchPredictions() {
@@ -145,5 +146,18 @@ export function* callRecomputePredictions() {
         })
         .catch(notifyError);
 
-    yield put({ type: "RECOMPUTE_PREDICTIONS_DONE", payload: json  });
+    yield put({ type: actionTypes.RECOMPUTE_PREDICTIONS + 'DONE', payload: json  });
 }
+
+export function* callComputeCurrentPrediction(args) {
+    const url = `http://localhost:3333/api/predictions/compute-current`;
+
+    const json = yield axios.post(url, args.payload)
+        .then(response => {
+            return response.data;
+        })
+        .catch(notifyError);
+
+    yield put({ type: actionTypes.COMPUTE_CURRENT_PREDICTION + 'DONE', payload: json  });
+}
+

@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import CurrenciesRate from "./currenciesRate";
 import {useStore} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {commitPredictions} from "../../actions";
+import {commitPredictions, computeCurrentPrediction} from "../../actions";
 import {addPercent, deductPercent} from "../../utils/rates";
 import {round5} from "../../utils";
 import moment from "moment";
+import {useDebouncedEffect} from "../../hooks/debouncedEffect";
 
 function CurrenciesPrediction(props) {
     const history = useHistory();
@@ -24,6 +25,26 @@ function CurrenciesPrediction(props) {
         currentTime: moment(),
         time: moment()
     });
+
+    useEffect(() => {
+        if (!props.value) history.push('/rates');
+    }, []);
+
+    useDebouncedEffect(() => {
+        if (Math.abs(value.rate)) {
+            store.dispatch(computeCurrentPrediction({
+                pair: props.pairs.join('/'),
+                volatility: value.volatility,
+                forecast: value.forecast,
+                realRate: props.value,
+                predRate: value.rate
+            }))
+        }
+    }, 500, [
+        value.rate,
+        value.volatility,
+        value.forecast
+    ]);
 
     return (
         <div className="d-flex flex-column ">
@@ -240,13 +261,13 @@ function CurrenciesPrediction(props) {
                             forecast: parseInt(ev.target.value, 10),
                         })}>
 
-                        <option value={0}>Default</option>
-                        <option value={-1}>Decrease (reason 1)</option>
-                        <option value={-2}>Decrease (reason 2)</option>
-                        <option value={-3}>Decrease (reason 3)</option>
-                        <option value={1}>Increase (reason 1)</option>
-                        <option value={2}>Increase (reason 2)</option>
-                        <option value={3}>Increase (reason 3)</option>
+                        <option value={0}>W/O forecast</option>
+                        <option value={-1}>Decrease, primary source</option>
+                        <option value={-2}>Decrease, secondary source</option>
+                        <option value={-3}>Decrease, tertiary source</option>
+                        <option value={1}>Increase, primary source</option>
+                        <option value={2}>Increase, secondary source</option>
+                        <option value={3}>Increase, tertiary source</option>
                     </select>
 
                 </div>
@@ -255,7 +276,7 @@ function CurrenciesPrediction(props) {
                     <label
                         htmlFor="volatility"
                         className=" mr-4">
-                            Volatility
+                            Volatility points
                     </label>
 
                     <select id="volatility"
@@ -265,9 +286,12 @@ function CurrenciesPrediction(props) {
                             ...value,
                             volatility: parseInt(ev.target.value, 10),
                         })}>
-                        <option value={0}>Low</option>
-                        <option value={1}>Medium</option>
-                        <option value={2}>High</option>
+                        <option value={0}>Default</option>
+                        <option value={1}>10 points</option>
+                        <option value={2}>25 points</option>
+                        <option value={3}>50 points</option>
+                        <option value={4}>75 points</option>
+                        <option value={5}>100+ points</option>
                     </select>
 
                 </div>

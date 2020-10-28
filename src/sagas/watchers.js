@@ -1,7 +1,8 @@
 import {takeLatest} from "@redux-saga/core/effects";
 import {
     callCheckSchedulersState,
-    callCommitPredictions,
+    callCommitPrediction,
+    callComputeCurrentPrediction,
     callEnableScheduler,
     callFetchHistory,
     callFetchPredictions,
@@ -10,6 +11,7 @@ import {
     callRecomputePredictions
 } from "./";
 import {callLogIn, callRegisterUser} from "./calls";
+import {actionTypes} from "../actions/types";
 
 export function* fetchRatesWatcher() {
     yield takeLatest('REQUEST_RATES', callFetchRates)
@@ -32,11 +34,15 @@ export function* enableSchedulerWatcher() {
 }
 
 export function* commitPredictionsWatcher() {
-    yield takeLatest('COMMIT_PREDICTIONS', callCommitPredictions)
+    yield takeLatest('COMMIT_PREDICTION', callCommitPrediction)
 }
 
 export function* recomputePredictionsWatcher() {
-    yield takeLatest('RECOMPUTE_PREDICTIONS', callRecomputePredictions)
+    yield takeLatest(actionTypes.RECOMPUTE_PREDICTIONS, callRecomputePredictions)
+}
+
+export function* computeCurrentPredictionWatcher() {
+    yield takeLatest(actionTypes.COMPUTE_CURRENT_PREDICTION, callComputeCurrentPrediction)
 }
 
 export function* registerUserWatcher() {
