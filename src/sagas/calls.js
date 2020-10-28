@@ -135,3 +135,15 @@ export function* callLogOut() {
 
     yield put({ type: "LOG_OUT_DONE" });
 }
+
+export function* callRecomputePredictions() {
+    const url = `http://localhost:3333/api/analyze/compute-all`;
+
+    const json = yield axios.post(url)
+        .then(response => {
+            return response.data;
+        })
+        .catch(notifyError);
+
+    yield put({ type: "RECOMPUTE_PREDICTIONS_DONE", payload: json  });
+}

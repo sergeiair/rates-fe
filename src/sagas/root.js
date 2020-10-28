@@ -4,6 +4,7 @@ import {
     commitPredictionsWatcher,
     enableSchedulerWatcher,
     fetchPredictionsWatcher,
+    recomputePredictionsWatcher,
     fetchRatesWatcher,
     fetchHistoryWatcher,
     registerUserWatcher,
@@ -17,10 +18,11 @@ export default function* rootSaga() {
         fetchHistoryWatcher(),
         fetchPredictionsWatcher(),
         commitPredictionsWatcher(),
+        recomputePredictionsWatcher(),
         checkSchedulersStateWatcher(),
         enableSchedulerWatcher(),
         registerUserWatcher(),
         logInWatcher(),
-        logOutWatcher()
+        logOutWatcher(),
     ]);
 }

@@ -48,6 +48,10 @@ export const logout = (history) => ({
 	history
 });
 
+export const recomputePredictions = () => ({
+	type: 'RECOMPUTE_PREDICTIONS',
+});
+
 export const requestError = () => ({
 	type: 'REQUEST_ERROR',
 });

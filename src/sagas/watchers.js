@@ -6,7 +6,8 @@ import {
     callFetchHistory,
     callFetchPredictions,
     callFetchRates,
-    callLogOut
+    callLogOut,
+    callRecomputePredictions
 } from "./";
 import {callLogIn, callRegisterUser} from "./calls";
 
@@ -34,6 +35,10 @@ export function* commitPredictionsWatcher() {
     yield takeLatest('COMMIT_PREDICTIONS', callCommitPredictions)
 }
 
+export function* recomputePredictionsWatcher() {
+    yield takeLatest('RECOMPUTE_PREDICTIONS', callRecomputePredictions)
+}
+
 export function* registerUserWatcher() {
     yield takeLatest('REGISTER_USER', callRegisterUser)
 }
@@ -45,4 +50,6 @@ export function* logInWatcher() {
 export function* logOutWatcher() {
     yield takeLatest('LOG_OUT', callLogOut)
 }
+
+
 
