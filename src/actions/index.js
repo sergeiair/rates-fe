@@ -1,3 +1,4 @@
+import {actionTypes} from "./types";
 
 export const initApp = () => ({
 	type: 'INIT_APP'
@@ -43,6 +44,17 @@ export const login = (payload) => ({
 	payload
 });
 
+export const restorePw = (payload) => ({
+	type: actionTypes.RESTORE_PW,
+	payload
+});
+
+export const createPw = (payload) => ({
+	type: actionTypes.CREATE_PW,
+	payload
+});
+
+
 export const logout = (history) => ({
 	type: 'LOG_OUT',
 	history
@@ -53,8 +65,9 @@ export const computeCurrentPrediction = (payload) => ({
 	payload
 });
 
-export const recomputePredictions = () => ({
-	type: 'RECOMPUTE_PREDICTIONS',
+export const recomputePredictions = (payload) => ({
+	type: actionTypes.RECOMPUTE_PREDICTIONS,
+	payload
 });
 
 export const requestError = () => ({

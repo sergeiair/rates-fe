@@ -28,7 +28,7 @@ function CurrenciesPrediction(props) {
 
     useEffect(() => {
         if (!props.value) history.push('/rates');
-    }, []);
+    }, [props.value, history]);
 
     useDebouncedEffect(() => {
         if (Math.abs(value.rate)) {

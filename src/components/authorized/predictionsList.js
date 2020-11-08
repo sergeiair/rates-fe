@@ -7,7 +7,9 @@ import moment from "moment";
 
 function PredictionsList(props) {
     const store = useStore();
-    const volatility = ['Low', 'Medium', 'High'];
+    const volatility = [
+        '10 points', '25 points', '50 points', '75 points', '100+ points'
+    ];
     useEffect(() => {
         store.dispatch(requestPredictions());
     }, [store]);

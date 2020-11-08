@@ -1,5 +1,6 @@
 import {SessionStorage} from "../utils/sessionStorage";
 import {actionTypes} from "../actions/types";
+import * as R from "ramda";
 
 const initialState = {
     schedulers: {
@@ -13,6 +14,10 @@ const initialState = {
     history: [],
     predictions: [],
     currentPrediction: {},
+    analyze: {
+        pairs: [],
+        preds: []
+    },
     user: {
         email: null,
         name: null,
@@ -85,8 +90,22 @@ const reducer = (state = initialState, action) => {
                     token: null
                 }
             };
+        case actionTypes.RECOMPUTE_PREDICTIONS + 'DONE':
+            const preds = action.payload.data || [];
+
+            return {
+                ...state,
+                analyze: {
+                    ...state.analyze,
+                    pairs: R.uniq(preds.map((pred) => pred.pair)),
+                    preds
+                }
+            };
         case actionTypes.COMPUTE_CURRENT_PREDICTION + 'DONE':
-            return { ...state, ...action.payload };
+            return {
+                ...state,
+                currentPrediction: action.payload
+            };
         case 'REQUEST_ERROR':
             return { ...state, ...action.payload };
         default:

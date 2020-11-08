@@ -10,7 +10,7 @@ import {
     callLogOut,
     callRecomputePredictions
 } from "./";
-import {callLogIn, callRegisterUser} from "./calls";
+import {callCreatePw, callLogIn, callRegisterUser, callRestorePw} from "./calls";
 import {actionTypes} from "../actions/types";
 
 export function* fetchRatesWatcher() {
@@ -57,5 +57,12 @@ export function* logOutWatcher() {
     yield takeLatest('LOG_OUT', callLogOut)
 }
 
+export function* restorePwWatcher() {
+    yield takeLatest(actionTypes.RESTORE_PW, callRestorePw)
+}
+
+export function* createPwWatcher() {
+    yield takeLatest(actionTypes.CREATE_PW, callCreatePw)
+}
 
 

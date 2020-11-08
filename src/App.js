@@ -73,7 +73,7 @@ function App(props) {
                             </Route>
                             <Route exact path="/analyze">
                                 <PredictionsAnalyze
-                                    values={props.predictions}/>
+                                    data={props.analyze}/>
                             </Route>
                         </Switch>
                         {/*<Portal>
@@ -98,6 +98,7 @@ export default connect(
         predictions: state.predictions,
         schedulers: state.schedulers,
         history: state.history,
+        analyze: state.analyze,
         user: state.user
     })
 )(App);

@@ -6,6 +6,7 @@ import {actionTypes} from "../actions/types";
 
 const axios = require('axios').default;
 const notifyError = (error) => toast.error(error.message);
+const notifySuccess = (msg => toast.success(msg));
 
 axios.interceptors.response.use((response) => {
     if(response.status === 401) internalLogOut();
@@ -137,12 +138,37 @@ export function* callLogOut() {
     yield put({ type: "LOG_OUT_DONE" });
 }
 
-export function* callRecomputePredictions() {
-    const url = `http://localhost:3333/api/analyze/compute-all`;
+export function* callRestorePw(args) {
+    const url = `http://localhost:3333/api/users/restore`;
 
-    const json = yield axios.post(url)
+    yield axios.post(url, { user: args.payload })
         .then(response => {
             return response.data;
+        })
+        .catch(notifyError);
+
+    yield put({ type: actionTypes.RESTORE_PW + 'DONE' });
+}
+
+export function* callCreatePw(args) {
+    const url = `http://localhost:3333/api/users/create-pw`;
+
+    yield axios.post(url, args.payload)
+        .then(response => {
+            return response.data;
+        })
+        .catch(notifyError);
+
+    yield put({ type: actionTypes.CREATE_PW + 'DONE' });
+}
+
+
+export function* callRecomputePredictions(args) {
+    const url = `http://localhost:3333/api/analyze/completed`;
+
+    const json = yield axios.post(url, args.payload)
+        .then(response => {
+            return response.data.data;
         })
         .catch(notifyError);
 
@@ -154,7 +180,13 @@ export function* callComputeCurrentPrediction(args) {
 
     const json = yield axios.post(url, args.payload)
         .then(response => {
-            return response.data;
+            const { result } = response.data.data;
+
+            if (!!result && !!result[0]) {
+                notifySuccess(result[0])
+            }
+
+            return result;
         })
         .catch(notifyError);
 

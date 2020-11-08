@@ -6,23 +6,21 @@ import {historyToGraphDataSet} from "../../utils";
 function PairGraph(props) {
   const wrapRef = createRef();
 
-  let graph = null;
-
   useEffect(() => {
-    if (props.data.length && props.pairs.length) {
-        graph = new Dygraph(
-            wrapRef.current,
-            historyToGraphDataSet(props.data, props.pairs[1]),
-            {
+      if (props.data.length && props.pairs.length) {
+          const graph = new Dygraph(
+              wrapRef.current,
+              historyToGraphDataSet(props.data, props.pairs[1]),
+              {
 
-                labels: ['Date', 'Currency'],
-                sigFigs: 4,
-                width: 1000,
-                title: `${props.pairs[0]}/${props.pairs[1]}`
-            }
+                  labels: ['Date', 'Currency'],
+                  sigFigs: 4,
+                  width: 1280,
+                  title: `${props.pairs[0]}/${props.pairs[1]}`
+              }
 
-        );
-    }
+          );
+      }
   }, [props.data, props.pairs]);
 
   return (

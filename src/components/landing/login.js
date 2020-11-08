@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useStore} from "react-redux";
-import {login} from "../../actions";
+import {login, restorePw} from "../../actions";
 
 
 function LogIn() {
@@ -53,6 +53,14 @@ function LogIn() {
                     disabled={!value.pw || !value.email }
                     onClick={() => store.dispatch(login(value))}>
                         Log in
+                </button>
+
+                <button
+                    type="button"
+                    className="btn btn-secondary"
+                    disabled={!value.email }
+                    onClick={() => store.dispatch(restorePw(value.email))}>
+                        Restore password
                 </button>
             </div>
 
