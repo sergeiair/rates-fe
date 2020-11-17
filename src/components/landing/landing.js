@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Link, useHistory, Switch, Route} from "react-router-dom";
+import React from 'react';
+import {Link, Route, Switch} from "react-router-dom";
 import SignUp from "./signup";
 import LogIn from "./login";
 import RestorePw from "./restorePw";
@@ -12,10 +12,10 @@ function Landing(props) {
             <nav className="fixed-top bg-dark p-4">
                 <ul className="nav nav-pills nav-justified">
                     <li className="nav-item">
-                        <Link className={'text-light'} to="/">Home</Link>
+                        <Link  to="/">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className={'text-light'} to="/signup">Signup</Link>
+                        <Link to="/signup">Signup</Link>
                     </li>
                 </ul>
             </nav>

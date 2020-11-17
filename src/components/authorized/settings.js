@@ -6,7 +6,6 @@ import {checkSchedulersState, enableScheduler} from "../../actions";
 import offImage from '../../assets/off.svg';
 import onImage from '../../assets/on.svg';
 
-
 function Settings(props) {
     const store = useStore();
 
@@ -19,13 +18,13 @@ function Settings(props) {
             <button className="btn-trans d-flex align-items-center"
                 onClick={() => store.dispatch(enableScheduler({name: 'rates'}))}>
                     <span className="p-3">Rates scheduler status</span>
-                    <img className="image-40" src={!props.schedulerStatuses['rates'] ? offImage : onImage}/>
+                    <img alt="" className="image-40" src={!props.schedulerStatuses['rates'] ? offImage : onImage}/>
             </button>
 
             <button className="btn-trans d-flex align-items-center mt-4"
                 onClick={() => store.dispatch(enableScheduler({name: 'predictions'}))}>
                     <span className="p-3">Predictions scheduler status</span>
-                    <img className="image-40" src={!props.schedulerStatuses['predictions'] ? offImage : onImage}/>
+                    <img alt="" className="image-40" src={!props.schedulerStatuses['predictions'] ? offImage : onImage}/>
             </button>
         </div>
     )

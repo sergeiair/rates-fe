@@ -64,3 +64,35 @@ export function getInitialPredAvgFallChange(data) {
         return 0;
     }
 }
+
+export function getFilteredPredictions(data, filter = { name: null, value: null }) {
+    if (!filter.value) return data || [];
+
+    switch (filter.name) {
+        case 'filter':
+            if (filter.value === 'successful') {
+                return (data || [])
+                    .filter(pred => isPredCompleted(pred) && isPredSuccessful(pred));
+            } else {
+                return (data || [])
+                    .filter(pred => isPredCompleted(pred) && !isPredSuccessful(pred));
+            }
+        case 'currency':
+            return (data || [])
+                .filter(pred => pred.pair === filter.value);
+        default:
+            return data || [];
+    }
+}
+
+export function isPredCompleted(pred) {
+    return !!pred.finalRate && !!pred.verifyTime;
+}
+
+export function isPredSuccessful(pred) {
+    if (pred.realRate < pred.predRate) {
+        return pred.finalRate >= pred.predRate;
+    } else {
+        return pred.finalRate < pred.predRate;
+    }
+}

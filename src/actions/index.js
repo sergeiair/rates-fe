@@ -1,7 +1,7 @@
 import {actionTypes} from "./types";
 
 export const initApp = () => ({
-	type: 'INIT_APP'
+	type: actionTypes.INIT_APP
 });
 
 export const requestRates = (payload) => ({
@@ -34,6 +34,11 @@ export const enableScheduler = (payload) => ({
 	payload
 });
 
+export const prepareTFPrediction = (payload) => ({
+	type: actionTypes.PREPARE_TF_PREDICTION,
+	payload
+});
+
 export const registerUser = (payload) => ({
 	type: 'REGISTER_USER',
 	payload
@@ -54,15 +59,18 @@ export const createPw = (payload) => ({
 	payload
 });
 
-
 export const logout = (history) => ({
-	type: 'LOG_OUT',
+	type: actionTypes.LOG_OUT,
 	history
 });
 
 export const computeCurrentPrediction = (payload) => ({
-	type: 'COMPUTE_CURRENT_PREDICTION',
+	type: actionTypes.COMPUTE_CURRENT_PREDICTION,
 	payload
+});
+
+export const resetCurrentPrediction = () => ({
+	type: actionTypes.RESET_CURRENT_PREDICTION
 });
 
 export const recomputePredictions = (payload) => ({
@@ -70,6 +78,7 @@ export const recomputePredictions = (payload) => ({
 	payload
 });
 
-export const requestError = () => ({
-	type: 'REQUEST_ERROR',
+export const setPredictionsFilter = (payload) => ({
+	type: actionTypes.SET_PREDICTIONS_FILER,
+	payload
 });

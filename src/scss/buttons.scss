@@ -12,6 +12,7 @@
   &:focus {
     outline: 0;
     border: 0;
+    box-shadow: none;
   }
 
   &:hover {
@@ -31,6 +32,25 @@ $xPadding: 1.5rem;
     margin-right: .5rem;
   }
 
-  @include generic-btn;
+  @include generic-btn();
+}
+
+.btn-pagination {
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
+  min-height: 25px;
+  border: 0;
+  background: transparent;
+  color: var(--accent-2-color);
+
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.as-button {
+  cursor: pointer;
 }
 

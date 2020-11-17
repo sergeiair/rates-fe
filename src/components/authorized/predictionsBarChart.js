@@ -1,9 +1,8 @@
-import React, {createRef, useEffect} from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import moment from "moment";
 
 const Chart = require('chart.js');
-
 
 class PredictionsBarChart extends React.Component {
 
@@ -88,8 +87,6 @@ class PredictionsBarChart extends React.Component {
     }
 
     updateBarChartData() {
-        const newDataSet = this.getChartDataSet(this.props);
-
         this.barChart.data.labels = this.getLabels(this.props);
         this.barChart.data.datasets = this.getChartDataSet(this.props);
         this.barChart.update();

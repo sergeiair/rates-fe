@@ -17,6 +17,7 @@
   }
 }
 
+.rdt .form-control,
 .input-trans,
 .select-trans {
   @include generic-input();
@@ -29,6 +30,18 @@
   &:focus {
     border-bottom: 1px solid var(--accent-color);
   }
+}
 
+.select-tiny {
+  border: 0;
+  background: transparent;
 
+  &:focus {
+    outline: none;
+    border: 0;
+  }
+}
+
+label {
+  width: 150px;
 }

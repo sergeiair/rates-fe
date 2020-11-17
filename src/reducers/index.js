@@ -13,7 +13,11 @@ const initialState = {
     },
     history: [],
     predictions: [],
-    currentPrediction: {},
+    predictionsFilter: { name: null },
+    currentPrediction: {
+        value: null,
+        status: 'pending'
+    },
     analyze: {
         pairs: [],
         preds: []
@@ -27,7 +31,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'INIT_APP':
+        case actionTypes.INIT_APP:
             return {
                 ...state,
                 user: {
@@ -55,7 +59,13 @@ const reducer = (state = initialState, action) => {
         case 'REQUEST_PREDICTIONS_DONE':
             return {
                 ...state,
+                predictionsFilter: initialState.predictionsFilter,
                 predictions: action.payload.data ? action.payload.data.predictions || [] : []
+            };
+        case actionTypes.SET_PREDICTIONS_FILER:
+            return {
+                ...state,
+                predictionsFilter: action.payload
             };
         case 'CHECK_SCHEDULERS_STATE_DONE':
             return {
@@ -81,7 +91,7 @@ const reducer = (state = initialState, action) => {
                     ...action.payload
                 }
             };
-        case 'LOG_OUT_DONE':
+        case actionTypes.LOG_OUT + 'DONE':
             return {
                 ...state,
                 user: {
@@ -104,7 +114,34 @@ const reducer = (state = initialState, action) => {
         case actionTypes.COMPUTE_CURRENT_PREDICTION + 'DONE':
             return {
                 ...state,
-                currentPrediction: action.payload
+                currentPrediction: {
+                    status: 'done',
+                    value: action.payload
+                }
+            };
+        case actionTypes.RESET_CURRENT_PREDICTION:
+            return {
+                ...state,
+                currentPrediction: {
+                    status: 'pending',
+                    value: null
+                }
+            };
+        case actionTypes.PREPARE_TF_PREDICTION:
+            return {
+                ...state,
+                currentPrediction: {
+                    ...state.currentPrediction,
+                    status: 'preparing'
+                }
+            };
+        case actionTypes.PREPARE_TF_PREDICTION + 'DONE':
+            return {
+                ...state,
+                currentPrediction: {
+                    status: action.payload.status,
+                    value: state.currentPrediction.value
+                }
             };
         case 'REQUEST_ERROR':
             return { ...state, ...action.payload };

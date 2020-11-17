@@ -15,33 +15,33 @@ function FetchRatesForm() {
         }));
     }, [selectRef, store]);
 
-  return (
-    <>
-      <form className="">
-        <input
-            type="string"
-            id="curr1"
-            className="input-trans w-100"
-            placeholder="First currency"
-            required=""
-            autoFocus=""
-            disabled={true}
-            defaultValue={'USD'}/>
+    return (
+        <div className="d-flex flex-column align-items-center ">
+            <div className="py-3">Select second currency</div>
+            <div className="d-flex align-items-center block-shadowed p-2">
+                <select
+                    disabled={true}
+                    className="select-trans w-100 px-4">
+                    <option>USD</option>
+                </select>
 
-            <select ref={selectRef}
-                className="select-trans w-100 mt-4"
-                onChange={() => store.dispatch(requestRates({
-                    curr1: 'USD',
-                    curr2: selectRef.current.value
-                }))}>
+                <div className="px-4"> / </div>
+
+                <select ref={selectRef}
+                        className="select-trans w-100 px-4 as-button"
+                        onChange={() => store.dispatch(requestRates({
+                            curr1: 'USD',
+                            curr2: selectRef.current.value
+                        }))}>
                     {
                         allCurrencies.map((curr) =>
                             <option key={curr}>{curr}</option>)
                     }
-            </select>
-      </form>
-    </>
-  );
+                </select>
+
+            </div>
+        </div>
+    );
 }
 
 export const FetchRatesFormMemorized = React.memo(FetchRatesForm);

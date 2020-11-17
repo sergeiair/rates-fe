@@ -1,0 +1,48 @@
+
+.text-gray {
+  color: var(--gray-text);
+}
+
+.text-small {
+  font-size: .8rem;
+}
+
+.accent-bg-text {
+  background-color: var(--accent-color);
+}
+
+.accent2-bg-text {
+  background-color: var(--accent-2-color);
+  color: var(--lightest-color);
+}
+
+.main-bg-text {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+}
+
+.accent2-text {
+  color: var(--accent-2-color);
+}
+
+.alert-text {
+  color: var(--alert-color);
+}
+
+.fail-text {
+  color: var(--fail-color);
+}
+
+.lightest-bg-text {
+  background-color: var(--lightest-color);
+  color: var(--accent-2-color);
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+strong,
+.text-strong {
+  font-family: MontserratBold, sans-serif;
+}

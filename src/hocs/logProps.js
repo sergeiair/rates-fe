@@ -1,18 +1,19 @@
 import React from 'react';
 
 function logProps(WrappedComponent) {
-    return class extends React.Component {
+    return class extends React.PureComponent {
+
         componentDidMount() {
-            console.log('Mounted ' + WrappedComponent.name);
+            //console.log(this.props)
         }
 
         componentDidUpdate(prevProps) {
-            console.log('Current props: ', this.props);
-            console.log('Previous props: ', prevProps);
+            //console.log(this.props)
         }
 
         render() {
-            return <WrappedComponent {...this.props} />;
+            return <WrappedComponent
+                {...this.props} />;
         }
     }
 }

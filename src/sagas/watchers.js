@@ -8,9 +8,10 @@ import {
     callFetchPredictions,
     callFetchRates,
     callLogOut,
-    callRecomputePredictions
+    callRecomputePredictions,
+    onAppInit
 } from "./";
-import {callCreatePw, callLogIn, callRegisterUser, callRestorePw} from "./calls";
+import {callCreatePw, callLogIn, callPrepareTFPrediction, callRegisterUser, callRestorePw} from "./calls";
 import {actionTypes} from "../actions/types";
 
 export function* fetchRatesWatcher() {
@@ -45,6 +46,14 @@ export function* computeCurrentPredictionWatcher() {
     yield takeLatest(actionTypes.COMPUTE_CURRENT_PREDICTION, callComputeCurrentPrediction)
 }
 
+export function* prepareTFPredictionWatcher() {
+    yield takeLatest(actionTypes.PREPARE_TF_PREDICTION, callPrepareTFPrediction)
+}
+
+export function* appInitWatcher() {
+    yield takeLatest(actionTypes.INIT_APP, onAppInit)
+}
+
 export function* registerUserWatcher() {
     yield takeLatest('REGISTER_USER', callRegisterUser)
 }
@@ -54,7 +63,7 @@ export function* logInWatcher() {
 }
 
 export function* logOutWatcher() {
-    yield takeLatest('LOG_OUT', callLogOut)
+    yield takeLatest(actionTypes.LOG_OUT, callLogOut)
 }
 
 export function* restorePwWatcher() {

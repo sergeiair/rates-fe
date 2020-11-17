@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter, NavLink, Route, Switch, Redirect} from "react-router-dom";
 import {connect, useStore} from "react-redux";
-import CurrenciesPrediction from "./components/authorized/currenciesPrediction";
+import RatePredictionForm from "./components/authorized/ratePredictionForm";
 import PredictionsList from "./components/authorized/predictionsList";
 import Settings from "./components/authorized/settings";
 import {round5} from "./utils";
@@ -12,6 +12,7 @@ import AuthGuard from "./components/helpers/authGuard";
 import {initApp, logout} from "./actions";
 import {initAuthHeaders} from "./sagas";
 import {SessionStorage} from "./utils/sessionStorage";
+import CurrenciesRate from "./components/authorized/currenciesRate";
 
 function App(props) {
     const store = useStore();
@@ -26,22 +27,19 @@ function App(props) {
             {
                 !props.user.token  ? <Landing/>  :
                 <AuthGuard auth={/*props.user.email && */!!props.user.token}>
-                    <div id="portal-root"
-                        className="fixed-top d-flex align-items-center justify-content-center bg-warning portal-root" />
-
-                    <nav className="fixed-top bg-dark p-4">
+                    <nav className="fixed-top nav-main p-4">
                         <ul className="nav nav-pills nav-justified">
                             <li className="nav-item">
-                                <Link className={'text-light'} to="/rates">1. Fetch rates</Link>
+                                <NavLink activeClassName="active" exact to="/rates">1. Select pair</NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link className={'text-light'} to="/submit">2. Submit</Link>
+                                <NavLink activeClassName="active" exact to="/submit">2. Submit prediction</NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link className={'text-light'} to="/review">3. Review</Link>
+                                <NavLink activeClassName="active" exact to="/review">3. Review</NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link className={'text-light'} to="/analyze">4. Analyze</Link>
+                                <NavLink activeClassName="active" exact to="/analyze">4. Analyze</NavLink>
                             </li>
                         </ul>
 
@@ -49,26 +47,37 @@ function App(props) {
                             onClick={() => store.dispatch(logout())}>
                                 <i className="fa fa-sign-out text-white "/>
                         </button>
-
                     </nav>
 
-                    <div className="container column-center py-5">
+                    <div className="fixed-top"
+                        style={{'top': '73px'}}>
+                            <CurrenciesRate
+                                time={props.lastRatesCheckTime}
+                                pairs={props.pairs}
+                                value={props.rate} />
+                    </div>
+
+                    <div className="container column-center py-3">
                         <Switch>
+                            <Redirect exact from="/" to="rates" />
                             <Route exact path="/settings">
                                 <Settings schedulerStatuses={props.schedulers}/>
                             </Route>
                             <Route exact path="/rates">
                                 <ReviewRates
+                                    value={props.rate}
                                     data={props.history}
                                     pairs={props.pairs}/>
                             </Route>
                             <Route exact path="/submit">
-                                <CurrenciesPrediction
+                                <RatePredictionForm
+                                    current={props.currentPrediction}
                                     pairs={props.pairs}
                                     value={props.rate}/>
                             </Route>
                             <Route exact path="/review">
                                 <PredictionsList
+                                    filter={props.predictionsFilter}
                                     values={props.predictions}/>
                             </Route>
                             <Route exact path="/analyze">
@@ -76,12 +85,6 @@ function App(props) {
                                     data={props.analyze}/>
                             </Route>
                         </Switch>
-                        {/*<Portal>
-                            <CurrenciesRate
-                                time={props.lastRatesCheckTime}
-                                pairs={props.pairs}
-                                value={props.rate} />
-                        </Portal>*/}
                     </div>
                 </AuthGuard>
             }
@@ -96,6 +99,8 @@ export default connect(
         rate: round5(state.rates[state.rates.target]) || 0,
         lastRatesCheckTime: state.rates.time || '',
         predictions: state.predictions,
+        predictionsFilter: state.predictionsFilter,
+        currentPrediction: state.currentPrediction,
         schedulers: state.schedulers,
         history: state.history,
         analyze: state.analyze,

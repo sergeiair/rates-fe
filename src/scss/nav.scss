@@ -1,0 +1,13 @@
+
+.nav-main {
+  background-color: var(--lightest-color);
+
+  a {
+    color: var(--main-text-color);
+    text-decoration: none;
+
+    &.active {
+      background-color: var(--accent-color);
+    }
+  }
+}

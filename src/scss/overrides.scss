@@ -2,10 +2,20 @@
 
 body {
     background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    font-family: MontserratRegular, sans-serif;
 }
 
 td {
     text-align: center;
+}
+
+.btn-primary {
+    color: var(--lightest-color);
+
+    &:hover {
+        color: var(--lightest-color);
+    }
 }
 
 

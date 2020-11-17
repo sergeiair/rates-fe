@@ -1,4 +1,26 @@
-:root {
-  --accent-color: #FFC108;
-  --main-bg-color: #fff;
+@font-face {
+  font-family: MontserratRegular;
+  src: url("../assets/font/Montserrat-Regular.ttf") format("opentype");
 }
+
+@font-face {
+  font-family: MontserratBold;
+  src: url("../assets/font/Montserrat-SemiBold.ttf") format("opentype");
+}
+
+:root {
+  --accent-color: #FFF07C;
+  --accent-2-color: #395B50;
+  --main-bg-color: #F0F3FB;
+  --lightest-color: #FFF;
+  --main-text-color: #222d38;
+  --alert-color: rgba(211, 32, 52, 0.57);
+  --fail-color: rgba(130, 29, 44, 0.73);
+  --gray-text: #898989;
+
+  --border-radius-mid: 6px;
+}
+
+
+$primary: #395B50;
+$danger: rgba(211, 32, 52, 0.57);

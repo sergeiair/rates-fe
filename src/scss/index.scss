@@ -1,14 +1,16 @@
+@import "variables";
 @import "~bootstrap/scss/bootstrap";
 @import '~react-toastify/scss/main';
 @import '~dygraphs/dist/dygraph.css';
 @import "~react-datetime/css/react-datetime.css";
-@import "variables";
 @import "layout";
 @import "sizes";
 @import "buttons";
 @import "root";
 @import "forms";
 @import "tables";
+@import "text";
 @import "overrides";
-
-
+@import "datepicker";
+@import "blocks";
+@import "nav";

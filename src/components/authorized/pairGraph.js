@@ -8,28 +8,29 @@ function PairGraph(props) {
 
   useEffect(() => {
       if (props.data.length && props.pairs.length) {
-          const graph = new Dygraph(
+          new Dygraph(
               wrapRef.current,
               historyToGraphDataSet(props.data, props.pairs[1]),
               {
 
                   labels: ['Date', 'Currency'],
                   sigFigs: 4,
-                  width: 1280,
-                  title: `${props.pairs[0]}/${props.pairs[1]}`
+                  width: 1280
               }
 
           );
       }
-  }, [props.data, props.pairs]);
+  }, [props.data, props.pairs, wrapRef]);
 
   return (
-    <div className="py-5">
-      <div ref={wrapRef} />
-        <div className="p-3 text-secondary text-center">
-            Select area to zoom or dbl click to reset
-        </div>
-    </div>
+      <div className="my-5">
+         <div className="block p-3">
+             <div ref={wrapRef} />
+             <small className="d-block mt-2 text-gray text-center">
+                 Select area to zoom or dbl click to reset
+             </small>
+         </div>
+      </div>
   );
 }
 

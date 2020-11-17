@@ -6,7 +6,6 @@ import {actionTypes} from "../actions/types";
 
 const axios = require('axios').default;
 const notifyError = (error) => toast.error(error.message);
-const notifySuccess = (msg => toast.success(msg));
 
 axios.interceptors.response.use((response) => {
     if(response.status === 401) internalLogOut();
@@ -19,6 +18,10 @@ axios.interceptors.response.use((response) => {
 
 export function initAuthHeaders(token) {
     axios.defaults.headers.common['GoAway'] = token;
+}
+
+export function* onAppInit() {
+    yield put({ type: actionTypes.INIT_APP + 'DONE' });
 }
 
 export function* callFetchRates(args) {
@@ -181,15 +184,23 @@ export function* callComputeCurrentPrediction(args) {
     const json = yield axios.post(url, args.payload)
         .then(response => {
             const { result } = response.data.data;
-
-            if (!!result && !!result[0]) {
-                notifySuccess(result[0])
-            }
-
-            return result;
+            return result[0];
         })
         .catch(notifyError);
 
     yield put({ type: actionTypes.COMPUTE_CURRENT_PREDICTION + 'DONE', payload: json  });
 }
 
+export function* callPrepareTFPrediction(args) {
+    const url = `http://localhost:3333/api/predictions/prepare-for-history`;
+
+    const json = yield axios.post(url, args.payload)
+        .then(response => {
+            const { data } = response.data;
+
+            return data;
+        })
+        .catch(notifyError);
+
+    yield put({ type: actionTypes.PREPARE_TF_PREDICTION + 'DONE', payload: json });
+}

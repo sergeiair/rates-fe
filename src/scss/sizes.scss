@@ -5,3 +5,10 @@
     min-width: #{$i * 20}px;
   }
 }
+
+@for $i from 1 through 10 {
+  .h-#{$i * 50}px {
+    height: #{$i * 50}px;
+  }
+}
+

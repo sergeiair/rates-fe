@@ -1,5 +1,6 @@
 import {all} from 'redux-saga/effects';
 import {
+    appInitWatcher,
     checkSchedulersStateWatcher,
     commitPredictionsWatcher,
     enableSchedulerWatcher,
@@ -12,11 +13,13 @@ import {
     logOutWatcher,
     computeCurrentPredictionWatcher,
     restorePwWatcher,
-    createPwWatcher
+    createPwWatcher,
+    prepareTFPredictionWatcher
 } from './watchers';
 
 export default function* rootSaga() {
     yield all([
+        appInitWatcher(),
         fetchRatesWatcher(),
         fetchHistoryWatcher(),
         fetchPredictionsWatcher(),
@@ -29,6 +32,7 @@ export default function* rootSaga() {
         logOutWatcher(),
         computeCurrentPredictionWatcher(),
         restorePwWatcher(),
-        createPwWatcher()
+        createPwWatcher(),
+        prepareTFPredictionWatcher()
     ]);
 }
