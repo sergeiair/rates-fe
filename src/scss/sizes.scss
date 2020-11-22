@@ -12,3 +12,9 @@
   }
 }
 
+@for $i from 1 through 10 {
+  .w-#{$i * 10}px {
+    width: #{$i * 10}px;
+  }
+}
+

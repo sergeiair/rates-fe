@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useStore} from "react-redux";
 import {registerUser} from "../../actions";
+import {NavLink} from "react-router-dom";
 
 
 function SignUp() {
@@ -13,8 +14,8 @@ function SignUp() {
 
     return (
 
-        <div className="container column-center py-5">
-            <div className="d-flex flex-column my-4">
+        <div className="container column-center pb-5">
+            <div className="d-flex flex-column mb-4">
                 <label
                     htmlFor="signupName"
                     className="">
@@ -65,7 +66,7 @@ function SignUp() {
                     })} />
             </div>
 
-            <div className="d-flex flex-column mt-4">
+            <div className="d-flex align-items-center mt-4">
                 <button
                     type="button"
                     className="btn btn-block btn-primary"
@@ -73,6 +74,12 @@ function SignUp() {
                     onClick={() => store.dispatch(registerUser(value))}>
                         Sign me up
                 </button>
+
+                <span className="px-4">or</span>
+
+                <NavLink activeClassName="active" exact to="/">
+                    Login
+                </NavLink>
             </div>
 
 

@@ -28,10 +28,10 @@ class PredictionsGraph extends React.Component {
     }
 
     render() {
-        return <div className="py-5">
+        return <div className="py-3">
             <canvas ref={this.chartRef} width="1280" height="400"></canvas>
             <div className="p-3 text-secondary text-center">
-                You picked the right direction with your prediction
+                Predictions results chart
             </div>
         </div>;
     }
@@ -43,7 +43,7 @@ class PredictionsGraph extends React.Component {
     getChartDataSet(props) {
         return [
             {
-                label: 'Real market rate - predicted rate',
+                label: `You'r doing good job if this graph does not fall below 0`,
                 backgroundColor: this.color3,
                 data: predsToGraphDataSet(props.data)
             },

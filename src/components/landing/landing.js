@@ -1,37 +1,48 @@
 import React from 'react';
-import {Link, Route, Switch} from "react-router-dom";
+import {Link, Redirect, Route, Switch} from "react-router-dom";
 import SignUp from "./signup";
 import LogIn from "./login";
 import RestorePw from "./restorePw";
+import Promo from "./promo/promo";
 
-function Landing(props) {
+import logoImage from '../../assets/logo.png';
+
+function Landing() {
 
     return (
+        <>
+            <div className="d-flex align-items-baseline justify-content-between container mt-4">
+                <img src={logoImage} />
+                <h2 className="accent2-text text-strong text-right mb-0">
+                    Your exchange rate forecast manager
+                </h2>
+            </div>
+            <div className="container w-100 d-flex mb-4 ">
+                <span className="alert-text text-strong ml-auto">beta</span>
+            </div>
+            <div className="my-3 mx-auto p-5 container block-shadowed">
+                <div className="row">
+                    <div className="col-sm-12 col-lg-7">
+                        <Promo/>
 
-        <div>
-            <nav className="fixed-top bg-dark p-4">
-                <ul className="nav nav-pills nav-justified">
-                    <li className="nav-item">
-                        <Link  to="/">Home</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/signup">Signup</Link>
-                    </li>
-                </ul>
-            </nav>
-
-            <Switch>
-                <Route exact path="/">
-                    <LogIn/>
-                </Route>
-                <Route exact path="/signup">
-                    <SignUp/>
-                </Route>
-                <Route exact path="/reset-password">
-                    <RestorePw/>
-                </Route>
-            </Switch>
-        </div>
+                    </div>
+                    <div className="col-sm-12 col-lg-5">
+                        <Switch>
+                            <Route exact path="/">
+                                <LogIn/>
+                            </Route>
+                            <Route exact path="/signup">
+                                <SignUp/>
+                            </Route>
+                            <Route exact path="/reset-password">
+                                <RestorePw/>
+                            </Route>
+                            <Redirect to="/" />
+                        </Switch>
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 

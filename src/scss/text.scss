@@ -16,6 +16,23 @@
   color: var(--lightest-color);
 }
 
+.accent2-bg-accent-text {
+  background-color: var(--accent-2-color);
+  color: var(--accent-color);
+
+  &.as-button {
+    &:hover {
+      background-color: var(--accent-color);
+      color: var(--accent-2-color);
+    }
+  }
+}
+
+.accent-bg-accent2-text {
+  background-color: var(--accent-color);
+  color: var(--accent-2-color);
+}
+
 .main-bg-text {
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
@@ -29,7 +46,7 @@
   color: var(--alert-color);
 }
 
-.fail-text {
+.alert-dark-text {
   color: var(--fail-color);
 }
 
@@ -40,6 +57,10 @@
 
 .underlined {
   text-decoration: underline;
+}
+
+.no-decoration {
+  text-decoration: none;
 }
 
 strong,

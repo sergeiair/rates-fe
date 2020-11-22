@@ -119,6 +119,7 @@ export function* callLogIn(args) {
         .then(response => {
             SessionStorage.pickFromHeader(response.headers);
             initAuthHeaders(SessionStorage.token);
+
             return response.data;
         })
         .catch(notifyError);

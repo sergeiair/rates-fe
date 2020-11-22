@@ -12,7 +12,7 @@ import uniqBy from "ramda/src/uniqBy";
 function PredictionsList(props) {
     const tableRef = createRef();
     const store = useStore();
-    const predictions = getFilteredPredictions(props.values, props.filter);
+    const predictions = getFilteredPredictions(props.values, props.filter, props.pair);
     const itemsNumber = predictions.length;
     const volatility = [
         '10 pts',
@@ -26,15 +26,15 @@ function PredictionsList(props) {
         store.dispatch(requestPredictions());
     }, []);
 
-    useEffect(() => {}, [itemsNumber, props.filter.name, props.filter.value]);
+    useEffect(() => {}, [itemsNumber, props.filter, props.pair]);
 
     return (
         <>
             <div className="d-flex align-items-center p-3 block-shadowed">
                 <div className="d-flex align-items-center">
                     <select className={`select-tiny accent2-text as-button mr-3`}
-                        onChange={(ev) => store.dispatch(setPredictionsFilter({name: 'currency', value: ev.target.value}))}>
-                            <option value="">Select pair</option>
+                        onChange={(ev) => store.dispatch(setPredictionsFilter({name: 'pair', value: ev.target.value}))}>
+                            <option value="">All pairs</option>
                             {
                                 uniqBy(({ pair }) => pair, props.values)
                                     .map((item, i) =>
@@ -44,17 +44,26 @@ function PredictionsList(props) {
                     </select>
                 </div>
 
-                <button className={`btn btn-trans accent2-text underlined ${
-                    props.filter === 'successful' ? 'text-strong' : ''}`}
-                    onClick={() => store.dispatch(setPredictionsFilter({name: 'filter', value: 'successful'}))}>
-                        Show successful
+                <div className="ml-5 mr-2 text-small text-gray">Filter: </div>
+
+                <button className={`px-2 btn btn-trans accent2-text  ${
+                    !props.filter ? 'text-strong' : ''}`}
+                        onClick={() => store.dispatch(setPredictionsFilter({name: 'filter', value: ''}))}>
+                    All
                 </button>
 
-                <button className={`btn btn-trans alert-text underlined ${
+                <button className={`px-2 btn btn-trans accent2-text  ${
+                    props.filter === 'successful' ? 'text-strong' : ''}`}
+                    onClick={() => store.dispatch(setPredictionsFilter({name: 'filter', value: 'successful'}))}>
+                        Successful
+                </button>
+
+                <button className={`px-2 btn btn-trans alert-text  ${
                     props.filter === 'unsuccessful' ? 'text-strong' : ''}`}
                     onClick={() => store.dispatch(setPredictionsFilter({name: 'filter', value: 'unsuccessful'}))}>
-                        Show unsuccessful
+                        Unsuccessful
                 </button>
+
             </div>
 
             <table ref={tableRef}
@@ -66,7 +75,7 @@ function PredictionsList(props) {
                             <th>Prediction rate</th>
                             <th>Verification rate</th>
                             <th className="text-strong">Initial - Prediction</th>
-                            <th className="text-strong">Verified - Prediction</th>
+                            <th className="text-strong">Initial - Verified</th>
                             <th>Forecast</th>
                             <th>Volatility</th>
                             <th>Created</th>
@@ -77,7 +86,7 @@ function PredictionsList(props) {
                     {
                         predictions.map((value, index) => {
                             return <tr key={index + value.id}
-                                className={!isPredSuccessful(value) && isPredCompleted(value) ? 'fail-text' : ''}>
+                                className={!isPredSuccessful(value) && isPredCompleted(value) ? 'alert-dark-text' : ''}>
                                     <td>{value.pair}</td>
                                     <td>{round4(value.realRate)}</td>
                                     <td>{round4(value.predRate)}</td>
@@ -101,7 +110,8 @@ function PredictionsList(props) {
 
 PredictionsList.propTypes = {
     values: PropTypes.array,
-    filter: PropTypes.object
+    pair: PropTypes.string,
+    filter: PropTypes.string
 };
 
 export default paginated(PredictionsList);

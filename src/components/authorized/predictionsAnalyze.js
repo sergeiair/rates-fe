@@ -8,7 +8,6 @@ import PredictionsStats from "./predictionsStats";
 import Datetime from 'react-datetime';
 import moment from "moment";
 
-
 function PredictionsAnalyze(props) {
     const store = useStore();
     const [value, setState] = useState({
@@ -43,37 +42,39 @@ function PredictionsAnalyze(props) {
     return (
 
         <>
-            <div className="d-flex align-items-center">
-                <Datetime
-                    onChange={date => setState({
-                        ...value,
-                        datesRange: [date, value.datesRange[1]]
-                    })}
-                    initialValue={value.datesRange[0]}
-                />
-                <Datetime
-                    onChange={date => setState({
-                        ...value,
-                        datesRange: [value.datesRange[0], date]
-                    })}
-                    initialValue={value.datesRange[1]}
-                />
-            </div>
+            <div className="d-flex flex-column align-items-center justify-content-center block-shadowed p-3">
+                <div className="d-flex align-items-center mb-3">
+                    <Datetime
+                        onChange={date => setState({
+                            ...value,
+                            datesRange: [date, value.datesRange[1]]
+                        })}
+                        initialValue={value.datesRange[0]}
+                    />
+                    <Datetime
+                        onChange={date => setState({
+                            ...value,
+                            datesRange: [value.datesRange[0], date]
+                        })}
+                        initialValue={value.datesRange[1]}
+                    />
+                </div>
 
-            <div className="d-flex align-items-center">
-                {
-                    props.data.pairs.map((pair, i) => (
-                        <button key={pair + i}
-                            className="btn btn-trans"
-                            onClick={_ => setState({
-                                ...value,
-                                pair: pair,
-                                preds: props.data.preds.filter(item => item.pair === pair),
-                            })}>
-                                {pair}
-                        </button>
-                    ))
-                }
+                <div className="d-flex align-items-center">
+                    {
+                        props.data.pairs.map((pair, i) => (
+                            <button key={pair + i}
+                                className={`btn btn-trans ${value.pair === pair ? 'text-strong' : 'text-gray'} `}
+                                onClick={_ => setState({
+                                    ...value,
+                                    pair: pair,
+                                    preds: props.data.preds.filter(item => item.pair === pair),
+                                })}>
+                                    {pair}
+                            </button>
+                        ))
+                    }
+                </div>
             </div>
             <PredictionsStats data={value.preds}/>
             <PredictionsGraph data={value.preds}/>

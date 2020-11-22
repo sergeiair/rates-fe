@@ -13,7 +13,8 @@ const initialState = {
     },
     history: [],
     predictions: [],
-    predictionsFilter: { name: null },
+    predictionsFilter: null,
+    predictionsPair: null,
     currentPrediction: {
         value: null,
         status: 'pending'
@@ -63,10 +64,19 @@ const reducer = (state = initialState, action) => {
                 predictions: action.payload.data ? action.payload.data.predictions || [] : []
             };
         case actionTypes.SET_PREDICTIONS_FILER:
-            return {
-                ...state,
-                predictionsFilter: action.payload
-            };
+            if (action.payload.name === 'filter') {
+                return {
+                    ...state,
+                    predictionsFilter: action.payload.value
+                };
+            } else if (action.payload.name === 'pair') {
+                return {
+                    ...state,
+                    predictionsPair: action.payload.value
+                };
+            } else {
+                return state;
+            }
         case 'CHECK_SCHEDULERS_STATE_DONE':
             return {
                 ...state,

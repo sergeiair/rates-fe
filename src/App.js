@@ -13,6 +13,8 @@ import {initApp, logout} from "./actions";
 import {initAuthHeaders} from "./sagas";
 import {SessionStorage} from "./utils/sessionStorage";
 import CurrenciesRate from "./components/authorized/currenciesRate";
+import logoutImage from './assets/logout.svg';
+import logoImage from './assets/logo-sm.png';
 
 function App(props) {
     const store = useStore();
@@ -29,6 +31,16 @@ function App(props) {
                 <AuthGuard auth={/*props.user.email && */!!props.user.token}>
                     <nav className="fixed-top nav-main p-4">
                         <ul className="nav nav-pills nav-justified">
+                            <li className="w-100px">
+                                <NavLink exact to="/rates">
+                                    <img className="position-fixed"
+                                         style={{
+                                             'left': '1.5rem',
+                                             'top': '.5rem'
+                                         }}
+                                         src={logoImage} />
+                                </NavLink>
+                            </li>
                             <li className="nav-item">
                                 <NavLink activeClassName="active" exact to="/rates">1. Select pair</NavLink>
                             </li>
@@ -45,7 +57,7 @@ function App(props) {
 
                         <button className="h-100 btn-trans px-3 absolute-right-top"
                             onClick={() => store.dispatch(logout())}>
-                                <i className="fa fa-sign-out text-white "/>
+                                <img className="w-20px as-button" src={logoutImage} />
                         </button>
                     </nav>
 
@@ -57,7 +69,7 @@ function App(props) {
                                 value={props.rate} />
                     </div>
 
-                    <div className="container column-center py-3">
+                    <div className="container column-center py-3 root">
                         <Switch>
                             <Redirect exact from="/" to="rates" />
                             <Route exact path="/settings">
@@ -77,6 +89,7 @@ function App(props) {
                             </Route>
                             <Route exact path="/review">
                                 <PredictionsList
+                                    pair={props.predictionsPair}
                                     filter={props.predictionsFilter}
                                     values={props.predictions}/>
                             </Route>
@@ -95,15 +108,9 @@ function App(props) {
 
 export default connect(
     (state) => ({
+        ...state,
         pairs: [state.rates.base, state.rates.target],
         rate: round5(state.rates[state.rates.target]) || 0,
-        lastRatesCheckTime: state.rates.time || '',
-        predictions: state.predictions,
-        predictionsFilter: state.predictionsFilter,
-        currentPrediction: state.currentPrediction,
-        schedulers: state.schedulers,
-        history: state.history,
-        analyze: state.analyze,
-        user: state.user
+        lastRatesCheckTime: state.rates.time || ''
     })
 )(App);

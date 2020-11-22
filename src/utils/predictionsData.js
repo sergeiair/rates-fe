@@ -1,20 +1,19 @@
+import {round4} from "./rates";
 
 export function predsToGraphDataSet(data) {
-    return data.sort((a, b) => {
-            return a.time - b.time;
-        }).map(item => {
-            if (item.realRate <= item.predRate) {
-                return {
-                    x: new Date(item.time),
-                    y: item.finalRate - item.predRate
-                }
-            } else {
-                return {
-                    x: new Date(item.time),
-                    y: item.predRate - item.finalRate
-                };
+    return data.map(item => {
+        if (item.realRate <= item.predRate) {
+            return {
+                x: new Date(item.time),
+                y: item.finalRate - item.predRate
             }
-        })
+        } else {
+            return {
+                x: new Date(item.time),
+                y: item.predRate - item.finalRate
+            };
+        }
+    })
 }
 
 export function getInitialVerifAvgRiseChange(data) {
@@ -41,7 +40,7 @@ export function getInitialPredAvgRiseChange(data) {
     }
 }
 
-export function getInitialVerifAvgFallChange(data) {
+/*export function getInitialVerifAvgFallChange(data) {
     if (!!data.length) {
         return data.reduce((acc, curr) => {
             acc += curr.realRate - curr.finalRate;
@@ -63,26 +62,26 @@ export function getInitialPredAvgFallChange(data) {
     } else {
         return 0;
     }
+}*/
+
+export function getFilteredPredictions(data, filter = '', pair = '') {
+    if (!filter && !pair) return data || [];
+
+    switch (filter) {
+        case 'successful':
+            return (data || [])
+                .filter(pred => isPredCompleted(pred) && isPredSuccessful(pred) && isPairMatched(pred, pair));
+        case 'unsuccessful':
+            return (data || [])
+                .filter(pred => isPredCompleted(pred) && !isPredSuccessful(pred) && isPairMatched(pred, pair));
+        default:
+            return (data || [])
+                .filter(pred => isPairMatched(pred, pair));
+    }
 }
 
-export function getFilteredPredictions(data, filter = { name: null, value: null }) {
-    if (!filter.value) return data || [];
-
-    switch (filter.name) {
-        case 'filter':
-            if (filter.value === 'successful') {
-                return (data || [])
-                    .filter(pred => isPredCompleted(pred) && isPredSuccessful(pred));
-            } else {
-                return (data || [])
-                    .filter(pred => isPredCompleted(pred) && !isPredSuccessful(pred));
-            }
-        case 'currency':
-            return (data || [])
-                .filter(pred => pred.pair === filter.value);
-        default:
-            return data || [];
-    }
+export function isPairMatched(pred, pair) {
+    return !!pair ? pred.pair === pair : true;
 }
 
 export function isPredCompleted(pred) {
@@ -90,9 +89,12 @@ export function isPredCompleted(pred) {
 }
 
 export function isPredSuccessful(pred) {
-    if (pred.realRate < pred.predRate) {
-        return pred.finalRate >= pred.predRate;
+    const realPredDiff = pred.realRate - pred.predRate;
+    const predFinalDiff = pred.realRate - pred.finalRate;
+
+    if (round4(realPredDiff) === round4(predFinalDiff)) {
+        return false;
     } else {
-        return pred.finalRate < pred.predRate;
+        return realPredDiff >= 0 ? predFinalDiff >= 0 : predFinalDiff < 0;
     }
 }
