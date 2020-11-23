@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/static/css/main.219ecfcb.chunk.css",
+    "main.js": "/static/js/main.51b585f7.chunk.js",
+    "main.js.map": "/static/js/main.51b585f7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e3cd0869.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e3cd0869.js.map",
+    "static/css/2.ecc15aba.chunk.css": "/static/css/2.ecc15aba.chunk.css",
+    "static/js/2.2dbcb925.chunk.js": "/static/js/2.2dbcb925.chunk.js",
+    "static/js/2.2dbcb925.chunk.js.map": "/static/js/2.2dbcb925.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.cb4c61afb18deba29a92d8b024ed316b.js": "/precache-manifest.cb4c61afb18deba29a92d8b024ed316b.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.ecc15aba.chunk.css.map": "/static/css/2.ecc15aba.chunk.css.map",
+    "static/css/main.219ecfcb.chunk.css.map": "/static/css/main.219ecfcb.chunk.css.map",
+    "static/js/2.2dbcb925.chunk.js.LICENSE.txt": "/static/js/2.2dbcb925.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/static/media/Montserrat-SemiBold.c641dbee.ttf",
+    "static/media/fall-chart.svg": "/static/media/fall-chart.15998c9a.svg",
+    "static/media/logout.svg": "/static/media/logout.4a69675d.svg",
+    "static/media/off.svg": "/static/media/off.27fd11e7.svg",
+    "static/media/on.svg": "/static/media/on.2e6ec85a.svg",
+    "static/media/rise-chart.svg": "/static/media/rise-chart.28ddfaea.svg",
+    "static/media/scr1.png": "/static/media/scr1.bbd2ebb3.png",
+    "static/media/scr2.png": "/static/media/scr2.1a55ec4c.png",
+    "static/media/scr3.png": "/static/media/scr3.e403fd95.png",
+    "static/media/scr4.png": "/static/media/scr4.9061fd8d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e3cd0869.js",
+    "static/css/2.ecc15aba.chunk.css",
+    "static/js/2.2dbcb925.chunk.js",
+    "static/css/main.219ecfcb.chunk.css",
+    "static/js/main.51b585f7.chunk.js"
+  ]
+}
