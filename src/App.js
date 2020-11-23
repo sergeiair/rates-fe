@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {BrowserRouter, NavLink, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter, NavLink, Redirect, Route, Switch} from "react-router-dom";
 import {connect, useStore} from "react-redux";
 import RatePredictionForm from "./components/authorized/ratePredictionForm";
 import PredictionsList from "./components/authorized/predictionsList";
 import Settings from "./components/authorized/settings";
-import {round5} from "./utils";
+import {round4} from "./utils";
 import ReviewRates from "./components/authorized/reviewRates";
 import PredictionsAnalyze from "./components/authorized/predictionsAnalyze";
 import Landing from "./components/landing/landing";
@@ -25,41 +25,42 @@ function App(props) {
     }, [store]);
 
     return (
-        <BrowserRouter >
+        <BrowserRouter>
             {
-                !props.user.token  ? <Landing/>  :
-                <AuthGuard auth={/*props.user.email && */!!props.user.token}>
-                    <nav className="fixed-top nav-main p-4">
-                        <ul className="nav nav-pills nav-justified">
-                            <li className="w-100px">
-                                <NavLink exact to="/rates">
-                                    <img className="position-fixed"
-                                         style={{
-                                             'left': '1.5rem',
-                                             'top': '.5rem'
-                                         }}
-                                         src={logoImage} />
-                                </NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeClassName="active" exact to="/rates">1. Select pair</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeClassName="active" exact to="/submit">2. Submit prediction</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeClassName="active" exact to="/review">3. Review</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink activeClassName="active" exact to="/analyze">4. Analyze</NavLink>
-                            </li>
-                        </ul>
+                !props.user.token
+                    ? <Landing/>
+                    : <AuthGuard auth={!!props.user.token}>
+                        <nav className="fixed-top nav-main p-4">
+                            <ul className="nav nav-pills nav-justified">
+                                <li className="w-100px">
+                                    <NavLink exact to="/rates">
+                                        <img className="position-fixed"
+                                             style={{
+                                                 'left': '1.5rem',
+                                                 'top': '.5rem'
+                                             }}
+                                             src={logoImage} />
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="active" exact to="/rates">1. Select pair</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="active" exact to="/submit">2. Submit prediction</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="active" exact to="/review">3. Review</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="active" exact to="/analyze">4. Analyze</NavLink>
+                                </li>
+                            </ul>
 
-                        <button className="h-100 btn-trans px-3 absolute-right-top"
-                            onClick={() => store.dispatch(logout())}>
-                                <img className="w-20px as-button" src={logoutImage} />
-                        </button>
-                    </nav>
+                            <button className="h-100 btn-trans px-3 absolute-right-top"
+                                onClick={() => store.dispatch(logout())}>
+                                    <img className="w-20px as-button" src={logoutImage} />
+                            </button>
+                        </nav>
 
                     <div className="fixed-top"
                         style={{'top': '73px'}}>
@@ -110,7 +111,7 @@ export default connect(
     (state) => ({
         ...state,
         pairs: [state.rates.base, state.rates.target],
-        rate: round5(state.rates[state.rates.target]) || 0,
+        rate: round4(state.rates[state.rates.target]) || 0,
         lastRatesCheckTime: state.rates.time || ''
     })
 )(App);

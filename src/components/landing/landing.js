@@ -1,13 +1,15 @@
 import React from 'react';
-import {Link, Redirect, Route, Switch} from "react-router-dom";
+import {useHistory, Redirect, Route, Switch} from "react-router-dom";
 import SignUp from "./signup";
 import LogIn from "./login";
 import RestorePw from "./restorePw";
 import Promo from "./promo/promo";
 
 import logoImage from '../../assets/logo.png';
+import AppHistory from "../../utils/appHistory";
 
 function Landing() {
+    AppHistory.instance = useHistory();
 
     return (
         <>

@@ -5,7 +5,7 @@ import {useStore} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {commitPredictions, computeCurrentPrediction, prepareTFPrediction, resetCurrentPrediction} from "../../actions";
 import {addPercent, deductPercent} from "../../utils/rates";
-import {round5} from "../../utils";
+import {round4} from "../../utils";
 import moment from "moment";
 import Datetime from "react-datetime";
 import ComputedPrediction from "./computedPrediction";
@@ -163,7 +163,7 @@ function RatePredictionForm(props) {
                         step="0.00001"
                         type="number"
                         placeholder={value.rate || props.value}
-                        value={round5(value.rate || props.value)}
+                        value={round4(value.rate || props.value)}
                         onChange={(event) => setState({
                             ...value,
                             pdcValue: 0,
@@ -328,8 +328,8 @@ function RatePredictionForm(props) {
                     <div>
                         <label className="text-gray text-small">Prediction rate:</label>
                         <span className="accent-bg-text">
-                            <strong>{round5(value.rate || props.value)}</strong>,
-                            {value.rate ? round5(props.value - value.rate) + ' from origin ' : ' Equal to origin '}
+                            <strong>{round4(value.rate || props.value)}</strong>,
+                            {value.rate ? round4(props.value - value.rate) + ' from origin ' : ' Equal to origin '}
                         </span>
                     </div>
                 </div>

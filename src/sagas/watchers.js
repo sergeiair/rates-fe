@@ -55,11 +55,11 @@ export function* appInitWatcher() {
 }
 
 export function* registerUserWatcher() {
-    yield takeLatest('REGISTER_USER', callRegisterUser)
+    yield takeLatest(actionTypes.REGISTER_USER, callRegisterUser)
 }
 
 export function* logInWatcher() {
-    yield takeLatest('LOG_IN', callLogIn)
+    yield takeLatest(actionTypes.LOG_IN, callLogIn)
 }
 
 export function* logOutWatcher() {

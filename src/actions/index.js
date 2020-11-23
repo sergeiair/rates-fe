@@ -40,12 +40,12 @@ export const prepareTFPrediction = (payload) => ({
 });
 
 export const registerUser = (payload) => ({
-	type: 'REGISTER_USER',
+	type: actionTypes.REGISTER_USER,
 	payload
 });
 
 export const login = (payload) => ({
-	type: 'LOG_IN',
+	type: actionTypes.LOG_IN,
 	payload
 });
 

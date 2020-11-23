@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {round5} from "../../utils";
+import {round4} from "../../utils";
 
 
 function ComputedPrediction(props) {
@@ -35,7 +35,7 @@ function ComputedPrediction(props) {
                 <strong className="underlined accent2-text">
                     {
                         props.current.value
-                            ? round5(props.current.value)
+                            ? round4(props.current.value)
                             : 'More predictions needed'
                     }
                 </strong>

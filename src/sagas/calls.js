@@ -2,17 +2,20 @@ import {put} from "@redux-saga/core/effects";
 import {toast} from 'react-toastify';
 import {SessionStorage} from "../utils/sessionStorage";
 import {internalLogOut} from "../utils/user";
+import AppHistory from "../utils/appHistory";
 import {actionTypes} from "../actions/types";
 
 const axios = require('axios').default;
 const notifyError = (error) => toast.error(error.message);
+const notifySuccess = (error) => toast.success(error.message);
 
 axios.interceptors.response.use((response) => {
-    if(response.status === 401) internalLogOut();
+    if(response.status === 401) {
+        internalLogOut();
+    }
+
     return response;
 }, (error) => {
-    notifyError(error);
-    internalLogOut();
     return Promise.reject(error.message);
 });
 
@@ -25,7 +28,7 @@ export function* onAppInit() {
 }
 
 export function* callFetchRates(args) {
-    const url = `http://localhost:3333/api/rates/pair?base=${
+    const url = `${process.env.REACT_APP_BASE_URL}/api/rates/pair?base=${
         args.payload.curr1}&second=${args.payload.curr2}`;
 
     const json = yield axios.get(url)
@@ -41,7 +44,7 @@ export function* callFetchRates(args) {
 }
 
 export function* callFetchHistory(args) {
-    const url = `http://localhost:3333/api/rates/history?base=${
+    const url = `${process.env.REACT_APP_BASE_URL}/api/rates/history?base=${
         args.payload.base}&limit=${args.payload.limit}`;
 
     const json = yield axios.get(url)
@@ -54,7 +57,7 @@ export function* callFetchHistory(args) {
 }
 
 export function* callCommitPrediction(args) {
-    const url = `http://localhost:3333/api/predictions`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/predictions`;
 
     const json = yield axios.post(url, args.payload)
         .then(response => {
@@ -67,7 +70,7 @@ export function* callCommitPrediction(args) {
 }
 
 export function* callFetchPredictions() {
-    const url = `http://localhost:3333/api/predictions`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/predictions`;
 
     const json = yield axios.get(url)
         .then(response => response.data)
@@ -77,8 +80,8 @@ export function* callFetchPredictions() {
 }
 
 export function* callCheckSchedulersState() {
-    const ratesSchedulerUrl = `http://localhost:3333/api/rates-scheduler/status`;
-    const predictionsSchedulerUrl = `http://localhost:3333/api/predictions-scheduler/status`;
+    const ratesSchedulerUrl = `${process.env.REACT_APP_BASE_URL}/api/rates-scheduler/status`;
+    const predictionsSchedulerUrl = `${process.env.REACT_APP_BASE_URL}/api/predictions-scheduler/status`;
     const ratesRequest = axios.get(ratesSchedulerUrl);
     const predictionsRequest = axios.get(predictionsSchedulerUrl);
 
@@ -93,7 +96,7 @@ export function* callCheckSchedulersState() {
 }
 
 export function* callEnableScheduler(args) {
-    const url = `http://localhost:3333/api/${args.payload.name}-scheduler/enable`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/${args.payload.name}-scheduler/enable`;
 
     const json = yield axios.post(url)
         .then(response => response.data)
@@ -103,34 +106,46 @@ export function* callEnableScheduler(args) {
 }
 
 export function* callRegisterUser(args) {
-    const url = `http://localhost:3333/api/users/register`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/users/register`;
 
     const json = yield axios.post(url, args.payload)
         .then(response => response.data)
         .catch(notifyError);
 
-    yield put({ type: "REGISTER_USER_DONE", payload: json });
+    if (!!json.data.resp._error) {
+        notifyError({ message: json.data.resp._error });
+    } else {
+        AppHistory.instance.push('/');
+        notifySuccess({ message: "Now you can log in" });
+    }
+
+    yield put({ type: actionTypes.REGISTER_USER + 'DONE', payload: json });
 }
 
 export function* callLogIn(args) {
-    const url = `http://localhost:3333/api/users/login`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/users/login`;
 
     const json = yield axios.post(url, args.payload)
         .then(response => {
             SessionStorage.pickFromHeader(response.headers);
             initAuthHeaders(SessionStorage.token);
 
-            return response.data;
+            return !!response ? response.data : {data: null};
         })
         .catch(notifyError);
 
-    yield put({ type: "LOG_IN_DONE", payload: {
-        ...json.data, token: SessionStorage.token
-    }});
+    if (!!json.data) {
+        yield put({ type: actionTypes.LOG_IN + 'DONE', payload: {
+            ...json.data, token: SessionStorage.token
+        }});
+    } else {
+        notifyError({message: "Failed to log in"});
+        yield put({ type: actionTypes.LOG_IN + 'FAIL' });
+    }
 }
 
 export function* callLogOut() {
-    const url = `http://localhost:3333/api/users/logout`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/users/logout`;
 
     yield axios.post(url)
         .then(response => {
@@ -139,23 +154,27 @@ export function* callLogOut() {
         })
         .catch(notifyError);
 
-    yield put({ type: "LOG_OUT_DONE" });
+    yield put({ type: actionTypes.LOG_OUT + 'DONE' });
 }
 
 export function* callRestorePw(args) {
-    const url = `http://localhost:3333/api/users/restore`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/users/restore`;
 
-    yield axios.post(url, { user: args.payload })
+    const json = yield axios.post(url, { user: args.payload })
         .then(response => {
             return response.data;
         })
         .catch(notifyError);
 
+    if (json.message === 'Done') {
+        notifySuccess({message: 'Please check your email'});
+    }
+
     yield put({ type: actionTypes.RESTORE_PW + 'DONE' });
 }
 
 export function* callCreatePw(args) {
-    const url = `http://localhost:3333/api/users/create-pw`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/users/create-pw`;
 
     yield axios.post(url, args.payload)
         .then(response => {
@@ -168,7 +187,7 @@ export function* callCreatePw(args) {
 
 
 export function* callRecomputePredictions(args) {
-    const url = `http://localhost:3333/api/analyze/completed`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/analyze/completed`;
 
     const json = yield axios.post(url, args.payload)
         .then(response => {
@@ -180,7 +199,7 @@ export function* callRecomputePredictions(args) {
 }
 
 export function* callComputeCurrentPrediction(args) {
-    const url = `http://localhost:3333/api/predictions/compute-current`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/predictions/compute-current`;
 
     const json = yield axios.post(url, args.payload)
         .then(response => {
@@ -193,7 +212,7 @@ export function* callComputeCurrentPrediction(args) {
 }
 
 export function* callPrepareTFPrediction(args) {
-    const url = `http://localhost:3333/api/predictions/prepare-for-history`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/predictions/prepare-for-history`;
 
     const json = yield axios.post(url, args.payload)
         .then(response => {
