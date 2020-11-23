@@ -7,8 +7,8 @@ import {NavLink} from "react-router-dom";
 function SignUp() {
     const store = useStore();
     const [value, setState] = useState({
-        email: 'u@u.u',
-        pw: '1111',
+        email: '',
+        pw: '',
         name: ''
     });
 

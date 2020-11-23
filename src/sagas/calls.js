@@ -112,7 +112,7 @@ export function* callRegisterUser(args) {
         .then(response => response.data)
         .catch(notifyError);
 
-    if (!!json.data.resp._error) {
+    if (!!json.data.resp && !!json.data.resp._error) {
         notifyError({ message: json.data.resp._error });
     } else {
         AppHistory.instance.push('/');
