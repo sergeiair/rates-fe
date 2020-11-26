@@ -10,12 +10,12 @@ const notifyError = (error) => toast.error(error.message);
 const notifySuccess = (error) => toast.success(error.message);
 
 axios.interceptors.response.use((response) => {
-    if(response.status === 401) {
-        internalLogOut();
-    }
+    if(response.status === 401) internalLogOut();
 
     return response;
 }, (error) => {
+    if(error.status === 401) internalLogOut();
+
     return Promise.reject(error.message);
 });
 
