@@ -13,7 +13,7 @@ function PairGraph(props) {
               historyToGraphDataSet(props.data, props.pairs[1]),
               {
 
-                  labels: ['Date', 'Currency'],
+                  labels: ['Date', 'Rate'],
                   sigFigs: 4,
                   width: 1280
               }
