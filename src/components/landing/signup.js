@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useStore} from "react-redux";
 import {registerUser} from "../../actions";
 import {NavLink} from "react-router-dom";
@@ -9,7 +9,8 @@ function SignUp() {
     const [value, setState] = useState({
         email: '',
         pw: '',
-        name: ''
+        name: '',
+        terms: false
     });
 
     return (
@@ -66,11 +67,25 @@ function SignUp() {
                     })} />
             </div>
 
+            <label htmlFor="terms"
+                style={{'width': '200px'}}
+                className=" my-4 as-button ">
+                    <input id="terms" type="checkbox"
+                        value={value.terms}
+                        onChange={(event) => setState({
+                            ...value,
+                            terms: event.target.checked
+                        })} />
+                    <span className="pl-3">I agree to</span>
+                    <a target="_blank" href="./pdfs/privacy.pdf" className="underlined"> Privacy policy </a> and
+                    <a target="_blank" href="./pdfs/terms.pdf" className="underlined"> Terms and Conditions </a>
+            </label>
+
             <div className="d-flex align-items-center mt-4">
                 <button
                     type="button"
                     className="btn btn-block btn-primary"
-                    disabled={!value.pw || !value.email }
+                    disabled={!value.pw || !value.email || !value.terms}
                     onClick={() => store.dispatch(registerUser(value))}>
                         Sign me up
                 </button>
@@ -78,7 +93,7 @@ function SignUp() {
                 <span className="px-4">or</span>
 
                 <NavLink activeClassName="active" exact to="/">
-                    Login
+                    Log&nbsp;in
                 </NavLink>
             </div>
 

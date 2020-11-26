@@ -15,7 +15,7 @@ function Landing() {
         <>
             <div className="d-flex align-items-baseline justify-content-between container mt-4">
                 <img src={logoImage} />
-                <h2 className="accent2-text text-strong text-right mb-0">
+                <h2 className="accent2-text text-strong text-right mb-0 pl-5">
                     Your exchange rate forecast manager
                 </h2>
             </div>
@@ -24,9 +24,8 @@ function Landing() {
             </div>
             <div className="my-3 mx-auto p-5 container block-shadowed">
                 <div className="row">
-                    <div className="col-sm-12 col-lg-7">
+                    <div className="d-none d-md-flex col-sm-12 col-lg-7">
                         <Promo/>
-
                     </div>
                     <div className="col-sm-12 col-lg-5">
                         <Switch>
