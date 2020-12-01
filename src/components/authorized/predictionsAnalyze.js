@@ -24,7 +24,7 @@ function PredictionsAnalyze(props) {
     }, [store, value.datesRange]);
 
     useEffect(() => {
-        if (props.data.pairs.length && !value.pair) {
+        if (props.data.pairs.length && props.data.preds.length) {
             setState({
                 ...value,
                 pair: props.data.pairs[0],

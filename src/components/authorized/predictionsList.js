@@ -78,8 +78,7 @@ function PredictionsList(props) {
                             <th className="text-strong">Initial - Verified</th>
                             <th>Forecast</th>
                             <th>Volatility</th>
-                            <th>Created</th>
-                            <th>Verified</th>
+                            <th>Verification</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,7 +95,6 @@ function PredictionsList(props) {
                                     <td>{value.forecast}</td>
                                     <td>{volatility[value.volatility]}</td>
                                     <td><small>{moment(value.time).format('lll')}</small></td>
-                                    <td><small>{moment(value.verifyTime).format('lll')}</small></td>
                             </tr>
                         })
                     }

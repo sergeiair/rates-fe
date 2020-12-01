@@ -322,15 +322,17 @@ function RatePredictionForm(props) {
 
                 <div className="my-5">
                     <div>
-                        <label className="text-gray text-small">Prediction date:</label>
-                        <span className="accent2-text">{value.time.format('LLL')}</span>
-                    </div>
-                    <div>
                         <label className="text-gray text-small">Prediction rate:</label>
                         <span className="accent-bg-text">
-                            <strong>{round4(value.rate || props.value)}</strong>,
-                            {value.rate ? round4(props.value - value.rate) + ' from origin ' : ' Equal to origin '}
+                            <strong>{round4(value.rate || props.value)}</strong>, &nbsp;
+                            { value.rate
+                                ? `${props.value < value.rate ? '+' : ''}${round4(value.rate - props.value)} from origin`
+                                : ' Equal to origin ' }
                         </span>
+                    </div>
+                    <div>
+                        <label className="text-gray text-small">Verification time:</label>
+                        <span className="accent2-text">{value.time.format('LLL')}</span>
                     </div>
                 </div>
 
