@@ -98,7 +98,7 @@ function PredictionsList(props) {
                                     <td><small>{moment(value.time).format('lll')}</small></td>
                                     <td>
                                         {!!value.finalRate
-                                            ? 'Done'
+                                            ? <small>Done {moment(value.verifyTime).format('lll')}</small>
                                             : <button className="bg-transparent border-0 p-0 accent2-text underlined text-strong"
                                                 onClick={() => store.dispatch(verifyPrediction({id: value.id}))}>
                                                     Verify now
