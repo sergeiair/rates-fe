@@ -14,12 +14,16 @@ import './scss/index.scss';
 
 const createSagaMiddleware  = require("redux-saga").default;
 const sagaMiddleware = createSagaMiddleware();
-const composeEnhancers = composeWithDevTools({
-});
-const store = createStore(
-    reducer,
-    composeEnhancers(applyMiddleware(sagaMiddleware, logger)),
-);
+const composeEnhancers = composeWithDevTools({});
+const store = process.env.NODE_ENV === 'development'
+    ? createStore(
+        reducer,
+        composeEnhancers(applyMiddleware(sagaMiddleware, logger)),
+    )
+    : createStore(
+        reducer,
+        composeEnhancers(applyMiddleware(sagaMiddleware)),
+    );
 
 sagaMiddleware.run(rootSaga);
 

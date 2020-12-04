@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {useStore} from "react-redux";
 import {recomputePredictions} from "../../actions";
 import PropTypes from "prop-types";
-import PredictionsBarChart from "./predictionsBarChart";
+import PredictionsLineChart from "./predictionsLineChart";
 import PredictionsGraph from "./predictionsGraph";
 import PredictionsStats from "./predictionsStats";
 import Datetime from 'react-datetime';
 import moment from "moment";
+import PredictionsBubbleChart from "./predictionsBubbleChart";
 
 function PredictionsAnalyze(props) {
     const store = useStore();
@@ -77,8 +78,9 @@ function PredictionsAnalyze(props) {
                 </div>
             </div>
             <PredictionsStats data={value.preds}/>
+            <PredictionsLineChart data={value.preds}/>
             <PredictionsGraph data={value.preds}/>
-            <PredictionsBarChart data={value.preds}/>
+            <PredictionsBubbleChart data={value.preds}/>
         </>
     )
 }

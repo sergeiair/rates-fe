@@ -1,7 +1,7 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useStore} from "react-redux";
-import {requestPredictions, setPredictionsFilter} from "../../actions";
+import {requestPredictions, setPredictionsFilter, verifyPrediction} from "../../actions";
 import {getFilteredPredictions, isPredCompleted, isPredSuccessful, round4} from "../../utils";
 import moment from "moment";
 import paginated from "../../hocs/logProps";
@@ -78,7 +78,8 @@ function PredictionsList(props) {
                             <th className="text-strong">Initial - Verified</th>
                             <th>Forecast</th>
                             <th>Volatility</th>
-                            <th>Verification</th>
+                            <th>Verification planned</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,6 +96,15 @@ function PredictionsList(props) {
                                     <td>{value.forecast}</td>
                                     <td>{volatility[value.volatility]}</td>
                                     <td><small>{moment(value.time).format('lll')}</small></td>
+                                    <td>
+                                        {!!value.finalRate
+                                            ? 'Done'
+                                            : <button className="bg-transparent border-0 p-0 accent2-text underlined text-strong"
+                                                onClick={() => store.dispatch(verifyPrediction({id: value.id}))}>
+                                                    Verify now
+                                              </button>
+                                        }
+                                    </td>
                             </tr>
                         })
                     }

@@ -14,7 +14,8 @@ import {
     computeCurrentPredictionWatcher,
     restorePwWatcher,
     createPwWatcher,
-    prepareTFPredictionWatcher
+    prepareTFPredictionWatcher,
+    verifyPredictionWatcher
 } from './watchers';
 
 export default function* rootSaga() {
@@ -33,6 +34,7 @@ export default function* rootSaga() {
         computeCurrentPredictionWatcher(),
         restorePwWatcher(),
         createPwWatcher(),
-        prepareTFPredictionWatcher()
+        prepareTFPredictionWatcher(),
+        verifyPredictionWatcher()
     ]);
 }

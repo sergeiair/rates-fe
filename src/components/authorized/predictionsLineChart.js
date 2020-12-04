@@ -4,11 +4,12 @@ import moment from "moment";
 
 const Chart = require('chart.js');
 
-class PredictionsBarChart extends React.Component {
+class PredictionsLineChart extends React.Component {
 
     color1 = '#273C2C';
     color2 = '#FED766';
     color3 = '#D7907B';
+    colorTrans = 'transparent';
 
     barchart = null;
 
@@ -52,17 +53,20 @@ class PredictionsBarChart extends React.Component {
         return [
             {
                 label: 'Initial rate',
-                backgroundColor: this.color1,
+                backgroundColor: this.colorTrans,
+                borderColor: this.color1,
                 data: initialRates
             },
             {
                 label: 'Prediction rate',
-                backgroundColor: this.color2,
+                backgroundColor: this.colorTrans,
+                borderColor: this.color2,
                 data: predRates
             },
             {
                 label: 'Verification rate',
-                backgroundColor: this.color3,
+                backgroundColor: this.colorTrans,
+                borderColor: this.color3,
                 data: finalRates
             }
         ]
@@ -70,7 +74,7 @@ class PredictionsBarChart extends React.Component {
 
     initBarChart() {
         this.barChart = new Chart(this.chartRef.current, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: this.getLabels(this.props),
                 datasets: this.getChartDataSet(this.props)
@@ -93,8 +97,8 @@ class PredictionsBarChart extends React.Component {
     }
 }
 
-PredictionsBarChart.propTypes = {
+PredictionsLineChart.propTypes = {
     data: PropTypes.array
 };
 
-export default PredictionsBarChart;
+export default PredictionsLineChart;

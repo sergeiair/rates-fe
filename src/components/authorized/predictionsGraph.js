@@ -30,9 +30,6 @@ class PredictionsGraph extends React.Component {
     render() {
         return <div className="py-3">
             <canvas ref={this.chartRef} width="1280" height="400"></canvas>
-            <div className="p-3 text-secondary text-center">
-                Predictions results chart
-            </div>
         </div>;
     }
 

@@ -14,7 +14,10 @@ axios.interceptors.response.use((response) => {
 
     return response;
 }, (error) => {
-    if(error.status === 401) internalLogOut();
+    if(!!error.status && error.status === 401
+        || error.message.indexOf('401') > 0) {
+            internalLogOut();
+    }
 
     return Promise.reject(error.message);
 });
@@ -223,4 +226,17 @@ export function* callPrepareTFPrediction(args) {
         .catch(notifyError);
 
     yield put({ type: actionTypes.PREPARE_TF_PREDICTION + 'DONE', payload: json });
+}
+
+export function* callVerifyPrediction(args) {
+    const url = `${process.env.REACT_APP_BASE_URL}/api/predictions/verify`;
+
+    const json = yield axios.post(url, args.payload)
+        .then(response => {
+            const { data } = response.data;
+            return data;
+        })
+        .catch(notifyError);
+
+    yield put({ type: actionTypes.VERIFY_PREDICTION + 'DONE', payload: json });
 }

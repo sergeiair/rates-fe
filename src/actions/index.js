@@ -82,3 +82,8 @@ export const setPredictionsFilter = (payload) => ({
 	type: actionTypes.SET_PREDICTIONS_FILER,
 	payload
 });
+
+export const verifyPrediction = (payload) => ({
+	type: actionTypes.VERIFY_PREDICTION,
+	payload
+});

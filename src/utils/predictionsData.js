@@ -16,6 +16,24 @@ export function predsToGraphDataSet(data) {
     })
 }
 
+export function predsToBubbleDataSet(data) {
+    return data.map((item, i) => {
+        if (item.realRate <= item.predRate) {
+            return {
+                x: i,
+                y: item.finalRate - item.realRate,
+                r: (item.finalRate - item.predRate) * 10
+            }
+        } else {
+            return {
+                x: i,
+                y: Math.abs(item.realRate - item.finalRate),
+                r: Math.abs(item.predRate - item.finalRate) * 10
+            };
+        }
+    }).filter((item) => item.r > 0);
+}
+
 export function getInitialVerifAvgRiseChange(data) {
     if (!!data.length) {
         return data.reduce((acc, curr) => {

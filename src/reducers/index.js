@@ -121,6 +121,18 @@ const reducer = (state = initialState, action) => {
                     preds
                 }
             };
+        case actionTypes.VERIFY_PREDICTION + 'DONE':
+            if (!!action.payload.data) {
+                return {
+                    ...state,
+                    predictions: state.predictions
+                        .map((pred) =>
+                            pred.id === action.payload.data.id ? action.payload.data : pred
+                        )
+                };
+            } else {
+                return state;
+            }
         case actionTypes.COMPUTE_CURRENT_PREDICTION + 'DONE':
             return {
                 ...state,

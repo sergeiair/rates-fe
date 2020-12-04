@@ -11,7 +11,14 @@ import {
     callRecomputePredictions,
     onAppInit
 } from "./";
-import {callCreatePw, callLogIn, callPrepareTFPrediction, callRegisterUser, callRestorePw} from "./calls";
+import {
+    callCreatePw,
+    callLogIn,
+    callPrepareTFPrediction,
+    callRegisterUser,
+    callRestorePw,
+    callVerifyPrediction
+} from "./calls";
 import {actionTypes} from "../actions/types";
 
 export function* fetchRatesWatcher() {
@@ -48,6 +55,10 @@ export function* computeCurrentPredictionWatcher() {
 
 export function* prepareTFPredictionWatcher() {
     yield takeLatest(actionTypes.PREPARE_TF_PREDICTION, callPrepareTFPrediction)
+}
+
+export function* verifyPredictionWatcher() {
+    yield takeLatest(actionTypes.VERIFY_PREDICTION, callVerifyPrediction)
 }
 
 export function* appInitWatcher() {
