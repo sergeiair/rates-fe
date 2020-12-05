@@ -6,7 +6,6 @@ import {
     callEnableScheduler,
     callFetchHistory,
     callFetchPredictions,
-    callFetchRates,
     callLogOut,
     callRecomputePredictions,
     onAppInit
@@ -21,12 +20,8 @@ import {
 } from "./calls";
 import {actionTypes} from "../actions/types";
 
-export function* fetchRatesWatcher() {
-    yield takeLatest('REQUEST_RATES', callFetchRates)
-}
-
 export function* fetchHistoryWatcher() {
-    yield takeLatest('REQUEST_HISTORY', callFetchHistory)
+    yield takeLatest(actionTypes.REQUEST_HISTORY, callFetchHistory)
 }
 
 export function* fetchPredictionsWatcher() {

@@ -4,6 +4,10 @@
   background-color: var(--lightest-color);
 }
 
+.shadowed {
+  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
 .block-shadowed {
   border-radius: var(--border-radius-mid);
   box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;

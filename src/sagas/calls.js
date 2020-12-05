@@ -30,32 +30,15 @@ export function* onAppInit() {
     yield put({ type: actionTypes.INIT_APP + 'DONE' });
 }
 
-export function* callFetchRates(args) {
-    const url = `${process.env.REACT_APP_BASE_URL}/api/rates/pair?base=${
-        args.payload.curr1}&second=${args.payload.curr2}`;
-
-    const json = yield axios.get(url)
-        .then(response => response.data)
-        .catch(notifyError);
-
-    yield put({
-        type: "REQUEST_RATES_DONE", payload: {
-            ...json,
-            target: args.payload.curr2
-        }
-    });
-}
-
 export function* callFetchHistory(args) {
-    const url = `${process.env.REACT_APP_BASE_URL}/api/rates/history?base=${
-        args.payload.base}&limit=${args.payload.limit}`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/rates/history?limit=${args.payload.limit}`;
 
     const json = yield axios.get(url)
         .then(response => response.data)
         .catch(notifyError);
 
     yield put({
-        type: "REQUEST_HISTORY_DONE", payload: json
+        type: actionTypes.REQUEST_HISTORY + 'DONE', payload: json
     });
 }
 

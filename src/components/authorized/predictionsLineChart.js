@@ -29,14 +29,15 @@ class PredictionsLineChart extends React.Component {
     }
 
     render() {
-        return <div className="py-5">
+        return <div className="p-3 my-3 block">
             <canvas ref={this.chartRef} width="1280" height="400"></canvas>
             <div className="p-3 text-secondary text-center"></div>
         </div>;
     }
 
     getLabels(props) {
-        return props.data.map((item) => moment(item.verifyTime).format('LLL'));
+        return props.data.map((item) =>
+            moment(item.verifyTime).format('LL'));
     }
 
     getData(props) {

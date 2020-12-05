@@ -6,7 +6,6 @@ import {
     enableSchedulerWatcher,
     fetchPredictionsWatcher,
     recomputePredictionsWatcher,
-    fetchRatesWatcher,
     fetchHistoryWatcher,
     registerUserWatcher,
     logInWatcher,
@@ -21,7 +20,6 @@ import {
 export default function* rootSaga() {
     yield all([
         appInitWatcher(),
-        fetchRatesWatcher(),
         fetchHistoryWatcher(),
         fetchPredictionsWatcher(),
         commitPredictionsWatcher(),

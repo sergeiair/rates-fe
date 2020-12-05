@@ -111,7 +111,7 @@ export default connect(
     (state) => ({
         ...state,
         pairs: [state.rates.base, state.rates.target],
-        rate: round4(state.rates[state.rates.target]) || 0,
-        lastRatesCheckTime: state.rates.time || ''
+        rate: round4(state.rates.latest),
+        lastRatesCheckTime: state.rates.time
     })
 )(App);

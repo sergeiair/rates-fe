@@ -58,30 +58,6 @@ export function getInitialPredAvgRiseChange(data) {
     }
 }
 
-/*export function getInitialVerifAvgFallChange(data) {
-    if (!!data.length) {
-        return data.reduce((acc, curr) => {
-            acc += curr.realRate - curr.finalRate;
-
-            return acc;
-        }, 0) / data.length;
-    } else {
-        return 0;
-    }
-}
-
-export function getInitialPredAvgFallChange(data) {
-    if (!!data.length) {
-        return data.reduce((acc, curr) => {
-            acc += curr.predRate - curr.finalRate;
-
-            return acc;
-        }, 0) / data.length;
-    } else {
-        return 0;
-    }
-}*/
-
 export function getFilteredPredictions(data, filter = '', pair = '') {
     if (!filter && !pair) return data || [];
 
@@ -92,6 +68,9 @@ export function getFilteredPredictions(data, filter = '', pair = '') {
         case 'unsuccessful':
             return (data || [])
                 .filter(pred => isPredCompleted(pred) && !isPredSuccessful(pred) && isPairMatched(pred, pair));
+        case 'pending':
+            return (data || [])
+                .filter(pred => !isPredCompleted(pred) && isPairMatched(pred, pair));
         default:
             return (data || [])
                 .filter(pred => isPairMatched(pred, pair));

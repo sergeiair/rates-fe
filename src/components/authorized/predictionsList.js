@@ -64,6 +64,12 @@ function PredictionsList(props) {
                         Unsuccessful
                 </button>
 
+                <button className={`px-2 btn btn-trans ${
+                    props.filter === 'pending' ? 'text-strong' : ''}`}
+                    onClick={() => store.dispatch(setPredictionsFilter({name: 'filter', value: 'pending'}))}>
+                        Pending
+                </button>
+
             </div>
 
             <table ref={tableRef}
@@ -79,7 +85,7 @@ function PredictionsList(props) {
                             <th>Forecast</th>
                             <th>Volatility</th>
                             <th>Verification planned</th>
-                            <th>Status</th>
+                            <th>Verification done</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,7 +104,7 @@ function PredictionsList(props) {
                                     <td><small>{moment(value.time).format('lll')}</small></td>
                                     <td>
                                         {!!value.finalRate
-                                            ? <small>Done {moment(value.verifyTime).format('lll')}</small>
+                                            ? <small>{moment(value.verifyTime).format('lll')}</small>
                                             : <button className="bg-transparent border-0 p-0 accent2-text underlined text-strong"
                                                 onClick={() => store.dispatch(verifyPrediction({id: value.id}))}>
                                                     Verify now

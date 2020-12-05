@@ -5,12 +5,12 @@ export const initApp = () => ({
 });
 
 export const requestRates = (payload) => ({
-	type: 'REQUEST_RATES',
+	type: actionTypes.REQUEST_RATES,
 	payload
 });
 
 export const requestHistory = (payload) => ({
-	type: 'REQUEST_HISTORY',
+	type: actionTypes.REQUEST_HISTORY,
 	payload
 });
 

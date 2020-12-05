@@ -160,7 +160,7 @@ function RatePredictionForm(props) {
                     <input
                         id="customRate"
                         className="flex-2 input-trans ml-4"
-                        step="0.00001"
+                        step="0.0001"
                         type="number"
                         placeholder={value.rate || props.value}
                         value={round4(value.rate || props.value)}

@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 
-import promoStyles from './promo.scss';
-
 import scr1Image from '../../../assets/promo/scr1.png';
 import scr2Image from '../../../assets/promo/scr2.png';
 import scr3Image from '../../../assets/promo/scr3.png';

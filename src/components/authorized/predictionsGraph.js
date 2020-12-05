@@ -28,13 +28,14 @@ class PredictionsGraph extends React.Component {
     }
 
     render() {
-        return <div className="py-3">
+        return <div className="p-3 mb-3 block">
             <canvas ref={this.chartRef} width="1280" height="400"></canvas>
         </div>;
     }
 
     getLabels(props) {
-        return props.data.map((item) => moment(item.verifyTime).format('LLL'));
+        return props.data.map((item) =>
+            moment(item.verifyTime).format('LL'));
     }
 
     getChartDataSet(props) {

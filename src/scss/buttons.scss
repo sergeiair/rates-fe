@@ -35,6 +35,24 @@ $xPadding: 1.5rem;
   @include generic-btn();
 }
 
+.btn-accent-2 {
+  background: var(--accent-2-color);
+  color: var(--lightest-color);
+  border: 0;
+  border-radius: var(--border-radius-small);
+
+  @include generic-btn();
+}
+
+.btn-lightest {
+  background: var(--lightest-color);
+  color: var(--accent-2-color);
+  border: 0;
+  border-radius: var(--border-radius-small);
+
+  @include generic-btn();
+}
+
 .btn-pagination {
   width: 25px;
   height: 25px;

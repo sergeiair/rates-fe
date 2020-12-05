@@ -8,8 +8,10 @@ const initialState = {
       predictions: 0
     },
     rates: {
-        base: 'USD',
-        target: 'EUR'
+        base: 'EUR',
+        target: 'USD',
+        latest: 0,
+        time: null
     },
     history: [],
     predictions: [],
@@ -41,22 +43,36 @@ const reducer = (state = initialState, action) => {
                     token: SessionStorage.token
                 }
             };
-        case 'REQUEST_RATES_DONE':
-            const { data, target } = action.payload;
-            const values = !!data && !!data.rates ? data.rates[0] : {};
+        case actionTypes.REQUEST_RATES:
+            const { base, target } = action.payload;
 
             return {
                 ...state,
                 rates: {
-                    ...values,
-                    target
+                    base,
+                    target,
+                    latest: 0
                 }
             };
-        case 'REQUEST_HISTORY_DONE':
-            return {
-                ...state,
-                history: action.payload.data ? action.payload.data.rates || [] : []
-            };
+        case actionTypes.REQUEST_HISTORY + 'DONE':
+            const history = action.payload.data ? action.payload.data.rates || [] : [];
+            const pair = `${state.rates.base}${state.rates.target}`;
+
+            if (history.length) {
+                const lastItem = history[history.length - 1];
+
+                return {
+                    ...state,
+                    history,
+                    rates: {
+                        ...state.rates,
+                        latest: lastItem[pair],
+                        time: lastItem.time
+                    }
+                };
+            } else {
+                return state
+            }
         case 'REQUEST_PREDICTIONS_DONE':
             return {
                 ...state,
