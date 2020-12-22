@@ -26,7 +26,7 @@ function PairGraph(props) {
       <div className="block mt-3 mb-4 p-3">
           <div ref={wrapRef} />
           <small className="d-block mt-2 text-gray text-center">
-              Select area to zoom or dbl click to reset
+              Select area to zoom or dbl click to reset.
           </small>
       </div>
   );

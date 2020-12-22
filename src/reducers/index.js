@@ -73,7 +73,13 @@ const reducer = (state = initialState, action) => {
             } else {
                 return state
             }
-        case 'REQUEST_PREDICTIONS_DONE':
+        case actionTypes.CLEAR_PREDICTIONS + 'DONE':
+            return {
+                ...state,
+                predictionsFilter: initialState.predictionsFilter,
+                predictions: initialState.predictions
+            };
+        case actionTypes.REQUEST_PREDICTIONS + 'DONE':
             return {
                 ...state,
                 predictionsFilter: initialState.predictionsFilter,

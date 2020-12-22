@@ -14,14 +14,18 @@ export const requestHistory = (payload) => ({
 	payload
 });
 
+export const clearPredictions = () => ({
+	type: actionTypes.CLEAR_PREDICTIONS
+});
+
 export const commitPredictions = (payload, history) => ({
-	type: 'COMMIT_PREDICTION',
+	type: actionTypes.COMMIT_PREDICTION,
 	payload,
 	history
 });
 
 export const requestPredictions = (payload) => ({
-	type: 'REQUEST_PREDICTIONS',
+	type: actionTypes.REQUEST_PREDICTIONS,
 	payload
 });
 

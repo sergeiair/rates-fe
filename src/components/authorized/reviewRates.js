@@ -10,13 +10,17 @@ import PairGraph from "./pairGraph";
 function ReviewRates(props) {
     const history = useHistory();
     const store = useStore();
-    const pair = props.pairs.join('/');
+    let interval = null;
 
     useEffect(() => {
-        store.dispatch(requestHistory({
-            limit: 225
-        }));
-    }, [store, pair]);
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+            store.dispatch(requestHistory({
+                limit: 225
+            }));
+        }, 5000);
+    }, []);
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center">

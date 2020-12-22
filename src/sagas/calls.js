@@ -42,6 +42,18 @@ export function* callFetchHistory(args) {
     });
 }
 
+export function* callClearPredictions() {
+    const url = `${process.env.REACT_APP_BASE_URL}/api/predictions/clear`;
+
+    const json = yield axios.delete(url)
+        .then(response => response.data)
+        .catch(notifyError);
+
+    yield put({
+        type: actionTypes.CLEAR_PREDICTIONS + 'DONE', payload: json
+    });
+}
+
 export function* callCommitPrediction(args) {
     const url = `${process.env.REACT_APP_BASE_URL}/api/predictions`;
 
@@ -52,7 +64,7 @@ export function* callCommitPrediction(args) {
         })
         .catch(notifyError);
 
-    yield put({ type: "COMMIT_PREDICTION_DONE", payload: json });
+    yield put({ type: actionTypes.COMMIT_PREDICTION + 'DONE' , payload: json });
 }
 
 export function* callFetchPredictions() {
@@ -62,7 +74,7 @@ export function* callFetchPredictions() {
         .then(response => response.data)
         .catch(notifyError);
 
-    yield put({ type: "REQUEST_PREDICTIONS_DONE", payload: json });
+    yield put({ type: actionTypes.REQUEST_PREDICTIONS + 'DONE', payload: json });
 }
 
 export function* callCheckSchedulersState() {

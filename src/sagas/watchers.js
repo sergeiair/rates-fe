@@ -5,6 +5,7 @@ import {
     callComputeCurrentPrediction,
     callEnableScheduler,
     callFetchHistory,
+    callClearPredictions,
     callFetchPredictions,
     callLogOut,
     callRecomputePredictions,
@@ -16,7 +17,7 @@ import {
     callPrepareTFPrediction,
     callRegisterUser,
     callRestorePw,
-    callVerifyPrediction
+    callVerifyPrediction,
 } from "./calls";
 import {actionTypes} from "../actions/types";
 
@@ -24,8 +25,12 @@ export function* fetchHistoryWatcher() {
     yield takeLatest(actionTypes.REQUEST_HISTORY, callFetchHistory)
 }
 
+export function* clearPredictionsWatcher() {
+    yield takeLatest(actionTypes.CLEAR_PREDICTIONS, callClearPredictions)
+}
+
 export function* fetchPredictionsWatcher() {
-    yield takeLatest('REQUEST_PREDICTIONS', callFetchPredictions)
+    yield takeLatest(actionTypes.REQUEST_PREDICTIONS, callFetchPredictions)
 }
 
 export function* checkSchedulersStateWatcher() {
@@ -37,7 +42,7 @@ export function* enableSchedulerWatcher() {
 }
 
 export function* commitPredictionsWatcher() {
-    yield takeLatest('COMMIT_PREDICTION', callCommitPrediction)
+    yield takeLatest(actionTypes.COMMIT_PREDICTION, callCommitPrediction)
 }
 
 export function* recomputePredictionsWatcher() {

@@ -283,14 +283,11 @@ function RatePredictionForm(props) {
                                 ...value,
                                 forecast: parseInt(ev.target.value, 10),
                             })}>
-
-                                <option value={0}>W/O forecast</option>
-                                <option value={-1}>Decrease, primary source</option>
-                                <option value={-2}>Decrease, secondary source</option>
-                                <option value={-3}>Decrease, tertiary source</option>
-                                <option value={1}>Increase, primary source</option>
-                                <option value={2}>Increase, secondary source</option>
-                                <option value={3}>Increase, tertiary source</option>
+                                <option value={0}>Neutral</option>
+                                <option value={-1}>Sell</option>
+                                <option value={-2}>Strong sell</option>
+                                <option value={1}>Buy</option>
+                                <option value={2}>Strong buy</option>
                         </select>
 
                     </div>

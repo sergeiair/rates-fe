@@ -14,7 +14,8 @@ import {
     restorePwWatcher,
     createPwWatcher,
     prepareTFPredictionWatcher,
-    verifyPredictionWatcher
+    verifyPredictionWatcher,
+    clearPredictionsWatcher
 } from './watchers';
 
 export default function* rootSaga() {
@@ -33,6 +34,7 @@ export default function* rootSaga() {
         restorePwWatcher(),
         createPwWatcher(),
         prepareTFPredictionWatcher(),
-        verifyPredictionWatcher()
+        verifyPredictionWatcher(),
+        clearPredictionsWatcher()
     ]);
 }

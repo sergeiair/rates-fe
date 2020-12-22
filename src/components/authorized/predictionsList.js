@@ -1,12 +1,13 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useStore} from "react-redux";
-import {requestPredictions, setPredictionsFilter, verifyPrediction} from "../../actions";
+import {clearPredictions, requestPredictions, setPredictionsFilter, verifyPrediction} from "../../actions";
 import {getFilteredPredictions, isPredCompleted, isPredSuccessful, round4} from "../../utils";
 import moment from "moment";
 import paginated from "../../hocs/logProps";
 import TablePagination from "../helpers/tablePagination";
 import uniqBy from "ramda/src/uniqBy";
+import {Confirmation} from "../../utils/confirm";
 
 
 function PredictionsList(props) {
@@ -116,6 +117,14 @@ function PredictionsList(props) {
                     }
                     </tbody>
             </table>
+
+            <div className="w-100 d-flex text-small">
+                <small className="ml-auto text-gray as-button"
+                    onClick={() => Confirmation.ask()
+                        .then(() => store.dispatch(clearPredictions())).catch(() => {})}>
+                            Clear history
+                </small>
+            </div>
 
             <TablePagination tableNode={tableRef} itemsNumber={itemsNumber}/>
         </>
