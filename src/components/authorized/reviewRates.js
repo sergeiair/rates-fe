@@ -13,13 +13,19 @@ function ReviewRates(props) {
     let interval = null;
 
     useEffect(() => {
+        store.dispatch(requestHistory({
+            limit: 225
+        }));
+    }, [store]);
+
+    useEffect(() => {
         clearInterval(interval);
 
         interval = setInterval(() => {
             store.dispatch(requestHistory({
                 limit: 225
             }));
-        }, 5000);
+        }, 60000);
     }, []);
 
     return (
