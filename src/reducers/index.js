@@ -46,16 +46,23 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REQUEST_RATES:
             const { base, target } = action.payload;
 
-            return {
-                ...state,
-                rates: {
-                    base,
-                    target,
-                    latest: 0
-                }
-            };
+            if (state.history.length) {
+                const lastItem = state.history[state.history.length - 1];
+                const pair = `${base}${target}`;
+
+                return {
+                    ...state,
+                    rates: {
+                        base,
+                        target,
+                        latest: lastItem[pair]
+                    }
+                };
+            } else {
+                return state;
+            }
         case actionTypes.REQUEST_HISTORY + 'DONE':
-            const history = action.payload.data ? action.payload.data.rates || [] : [];
+            const history = (action.payload.data ? action.payload.data.rates || [] : []).reverse();
             const pair = `${state.rates.base}${state.rates.target}`;
 
             if (history.length) {
