@@ -14,7 +14,7 @@ function ReviewRates(props) {
 
     useEffect(() => {
         store.dispatch(requestHistory({
-            limit: 225
+            limit: 1400
         }));
     }, [store]);
 
@@ -23,7 +23,7 @@ function ReviewRates(props) {
 
         interval = setInterval(() => {
             store.dispatch(requestHistory({
-                limit: 225
+                limit: 1400
             }));
         }, 60000);
     }, []);
